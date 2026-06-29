@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NuLiv Knowledge OS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="app-shell" id="appShell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">N</div>
+        <div>
+          <strong>NuLiv</strong>
+          <span>Knowledge OS</span>
+        </div>
+      </div>
+      <nav id="moduleNav" class="module-nav" aria-label="知識分類"></nav>
+      <div class="resize-hint">拖曳右側邊線可調整寬度</div>
+    </aside>
+    <button id="sidebarResize" class="sidebar-resize" type="button" aria-label="調整側欄寬度"></button>
+
+    <main class="content">
+      <header class="topbar">
+        <div class="title-group">
+          <p class="eyebrow">Maison Knowledge System</p>
+          <h1>NuLiv Knowledge OS</h1>
+          <p class="topbar-copy">把喜悅的理念、門診、檢測、儀器、療程、人才培育與營運系統整理成可搜尋、可新增、可更新、可被 AI 使用的公司級知識作業系統。</p>
+        </div>
+        <label class="search">
+          <span aria-hidden="true"></span>
+          <input id="searchInput" type="search" placeholder="搜尋理念、門診、檢測、儀器、療程、SOP、訓練" />
+        </label>
+      </header>
+
+      <section class="overview-board">
+        <div class="overview-copy">
+          <p class="eyebrow" id="overviewEyebrow">Knowledge Architecture</p>
+          <h2 id="overviewTitle">喜悅核心理念</h2>
+          <p id="overviewCopy"></p>
+          <a id="overviewAddBtn" class="secondary-btn inline-action" href="https://app.notion.com/p/4d6710708c984ac588482c61523a955d">到 Notion 新增此分類</a>
+        </div>
+        <div id="categoryCards" class="category-cards"></div>
+      </section>
+
+      <section class="workspace">
+        <section class="library">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow" id="moduleName">Joy Philosophy</p>
+              <h2 id="moduleTitle">喜悅核心理念</h2>
+            </div>
+            <a id="createEntryBtn" class="secondary-btn" href="https://app.notion.com/p/4d6710708c984ac588482c61523a955d">到 Notion 新增知識</a>
+          </div>
+          <div id="recordTable" class="notion-table"></div>
+        </section>
+
+        <section id="recordDetail" class="detail" aria-live="polite"></section>
+
+        <section class="qa-panel">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Knowledge QA</p>
+              <h2>整合回答：固定十題問答</h2>
+            </div>
+            <button id="refreshKnowledgeBtn" class="primary-btn small-btn" type="button">知識更新與整理</button>
+          </div>
+          <div id="updateNote" class="update-note"></div>
+          <div id="qaList" class="qa-list"></div>
+        </section>
+
+        <section class="update-panel">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Update Queue</p>
+              <h2>待補資料</h2>
+            </div>
+          </div>
+          <div id="queueList" class="queue-list"></div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="./app.js"></script>
+</body>
+</html>
