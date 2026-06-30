@@ -419,13 +419,9 @@ function renderOverview() {
     <article class="category-card">
       <span>${card.label}</span>
       <p>${card.text}</p>
-      <button type="button" data-create-card="${card.label}">到 Notion 新增</button>
+      <a href="${NOTION_DATABASE_URL}" target="_blank" rel="noopener noreferrer" data-create-card="${card.label}">到 Notion 新增</a>
     </article>
   `).join("");
-
-  document.querySelectorAll("[data-create-card]").forEach((button) => {
-    button.addEventListener("click", () => createDraft(button.dataset.createCard));
-  });
 }
 
 function renderModuleHeader() {
@@ -560,7 +556,7 @@ function renderQueue() {
 function createDraft(categoryLabel) {
   const label = categoryLabel || moduleTitle();
   showToast(`請到 Notion 新增「${label}」知識`);
-  window.location.assign(NOTION_DATABASE_URL);
+  window.open(NOTION_DATABASE_URL, "_blank", "noopener,noreferrer");
 }
 
 function refreshKnowledge() {
@@ -584,8 +580,6 @@ function bindEvents() {
     renderDetail();
     renderFaq();
   });
-  $("#createEntryBtn").addEventListener("click", () => createDraft());
-  $("#overviewAddBtn").addEventListener("click", () => createDraft());
   $("#refreshKnowledgeBtn").addEventListener("click", refreshKnowledge);
   bindSidebarResize();
 }
