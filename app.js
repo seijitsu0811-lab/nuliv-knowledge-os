@@ -330,6 +330,36 @@ const records = [
   })
 ];
 
+function moduleKeyFromTitle(title) {
+  const match = modules.find((module) => module.title === title);
+  return match?.key || "philosophy";
+}
+
+function normalizeSyncedRecord(item, index) {
+  const module = moduleKeyFromTitle(item.moduleTitle || item["主分類"]);
+  const name = item.name || item["名稱"] || `Notion 知識 ${index + 1}`;
+  return entry(module, {
+    id: item.id || `${module}-${name.replace(/\s+/g, "-")}`,
+    name,
+    status: item.status || item["內容狀態"] || "未開始",
+    priority: item.priority || item["學習優先順序"] || "待判定",
+    category: item.category || item["子分類"] || item.moduleTitle || item["主分類"] || moduleTitle(module),
+    intro: item.intro || item["一句話介紹"] || "",
+    mechanism: item.mechanism || item["核心概念"] || "",
+    script: item.script || item["第一線應用"] || "",
+    sop: item.sop || item["SOP"] || "",
+    caution: item.caution || item["注意事項"] || "",
+    relation: item.relation || item["關聯知識"] || "",
+    source: item.source || item["最後整理來源"] || "Notion"
+  });
+}
+
+function applySyncedRecords() {
+  const syncedRecords = window.NULIV_SYNC_RECORDS;
+  if (!Array.isArray(syncedRecords) || syncedRecords.length === 0) return;
+  records.splice(0, records.length, ...syncedRecords.map(normalizeSyncedRecord));
+}
+
 const queue = [
   { title: "補上門診預約系統截圖與欄位說明", owner: "櫃台與門診", due: "本週" },
   { title: "把新人四週訓練拆成每日任務", owner: "人才培育", due: "本週" },
@@ -343,6 +373,9 @@ let state = {
   lastUpdatedAt: null,
   updateSources: []
 };
+
+applySyncedRecords();
+state.selectedId = records[0].id;
 
 const $ = (selector) => document.querySelector(selector);
 
@@ -538,9 +571,12 @@ function renderFaq() {
     });
   });
 
+  const syncNote = window.NULIV_SYNCED_AT
+    ? `Notion 同步時間：${window.NULIV_SYNCED_AT}`
+    : "目前使用網站內建資料；Notion 新增內容需完成同步流程後才會出現在網站。";
   const note = state.lastUpdatedAt
-    ? `已於 ${state.lastUpdatedAt} 重新讀取資料庫並整理 FAQ。根據：${state.updateSources.join("、")}`
-    : `FAQ 會依目前分類與條目即時生成。按下「知識更新與整理」後，會重新讀取目前資料庫並標示來源。`;
+    ? `已於 ${state.lastUpdatedAt} 依目前已部署資料整理 FAQ。根據：${state.updateSources.join("、")}。${syncNote}`
+    : `FAQ 會依目前分類與條目即時生成。${syncNote}`;
   $("#updateNote").textContent = note;
 }
 
@@ -568,7 +604,7 @@ function refreshKnowledge() {
     ...recordsInModule().slice(0, 3).map((item) => item.name)
   ])];
   renderFaq();
-  showToast("已重新讀取資料庫並整理固定十題問答");
+  showToast("已依目前網站資料整理固定十題問答");
 }
 
 function bindEvents() {
