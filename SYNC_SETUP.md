@@ -10,6 +10,7 @@ This site is a static GitHub Pages frontend. Notion changes are synced into `syn
 4. In GitHub repo settings, add these repository secrets:
    - `NOTION_TOKEN`: the Notion integration secret.
    - `NOTION_DATABASE_ID`: `4d6710708c984ac588482c61523a955d`
+   - `NOTION_FAQ_DATABASE_ID`: `ecf074541a9d4088b59b94dfde056fdd`
 
 ## Sync behavior
 

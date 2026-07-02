@@ -522,6 +522,18 @@ function detailBlock(title, text) {
 }
 
 function buildFaq() {
+  const syncedFaqs = window.NULIV_SYNC_FAQS;
+  if (Array.isArray(syncedFaqs) && syncedFaqs.length > 0) {
+    return syncedFaqs
+      .filter((item) => item.visible !== false)
+      .sort((a, b) => (a.order || 999) - (b.order || 999))
+      .slice(0, 10)
+      .map((item) => [
+        item.question || "未命名問題",
+        `${item.answer || "尚未填寫答案。"}${item.source ? `\n\n依據：${item.source}` : ""}`
+      ]);
+  }
+
   const record = currentRecord();
   const related = records
     .filter((item) => item.module === state.module)
