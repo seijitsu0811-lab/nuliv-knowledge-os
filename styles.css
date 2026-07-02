@@ -317,6 +317,10 @@ h3 {
   background: linear-gradient(135deg, rgba(255, 254, 250, 0.96), rgba(255, 248, 242, 0.92));
 }
 
+.overview-board[hidden] {
+  display: none;
+}
+
 .overview-copy p {
   color: var(--muted);
   line-height: 1.75;

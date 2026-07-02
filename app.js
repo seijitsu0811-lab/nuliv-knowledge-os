@@ -645,9 +645,6 @@ function bindEvents() {
     renderTable();
     renderDetail();
     renderFaq();
-    if (state.query.trim()) {
-      document.querySelector(".library").scrollIntoView({ behavior: "smooth", block: "start" });
-    }
   });
   $("#refreshKnowledgeBtn").addEventListener("click", refreshKnowledge);
   bindSidebarResize();
