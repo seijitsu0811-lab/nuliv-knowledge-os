@@ -357,7 +357,11 @@ function normalizeSyncedRecord(item, index) {
 function applySyncedRecords() {
   const syncedRecords = window.NULIV_SYNC_RECORDS;
   if (!Array.isArray(syncedRecords) || syncedRecords.length === 0) return;
-  records.splice(0, records.length, ...syncedRecords.map(normalizeSyncedRecord));
+  const merged = new Map(records.map((record) => [record.name, record]));
+  syncedRecords.map(normalizeSyncedRecord).forEach((record) => {
+    merged.set(record.name, record);
+  });
+  records.splice(0, records.length, ...merged.values());
 }
 
 const queue = [
