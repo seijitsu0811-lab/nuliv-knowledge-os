@@ -449,6 +449,12 @@ function renderNav() {
 }
 
 function renderOverview() {
+  const board = document.querySelector(".overview-board");
+  if (state.query.trim()) {
+    board.hidden = true;
+    return;
+  }
+  board.hidden = false;
   const overview = moduleOverview[state.module];
   $("#overviewEyebrow").textContent = overview.eyebrow;
   $("#overviewTitle").textContent = overview.title;
@@ -634,9 +640,14 @@ function bindEvents() {
     state.query = event.target.value;
     const first = recordsInModule()[0];
     if (first) state.selectedId = first.id;
+    renderOverview();
+    renderModuleHeader();
     renderTable();
     renderDetail();
     renderFaq();
+    if (state.query.trim()) {
+      document.querySelector(".library").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   });
   $("#refreshKnowledgeBtn").addEventListener("click", refreshKnowledge);
   bindSidebarResize();
