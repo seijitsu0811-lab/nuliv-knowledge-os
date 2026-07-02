@@ -386,10 +386,11 @@ const $ = (selector) => document.querySelector(selector);
 function recordsInModule() {
   const text = state.query.trim().toLowerCase();
   return records.filter((record) => {
-    if (record.module !== state.module) return false;
+    if (!text && record.module !== state.module) return false;
     if (!text) return true;
     return [
       record.name,
+      moduleTitle(record.module),
       record.category,
       record.priority,
       record.intro,
@@ -463,6 +464,11 @@ function renderOverview() {
 
 function renderModuleHeader() {
   const module = modules.find((item) => item.key === state.module);
+  if (state.query.trim()) {
+    $("#moduleName").textContent = "Global Search";
+    $("#moduleTitle").textContent = `全站搜尋：${state.query.trim()}`;
+    return;
+  }
   $("#moduleName").textContent = module.name;
   $("#moduleTitle").textContent = module.title;
 }
