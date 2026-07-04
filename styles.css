@@ -223,7 +223,7 @@ p {
 
 .content {
   min-width: 0;
-  padding: 30px;
+  padding: 22px 30px 30px;
 }
 
 .topbar,
@@ -243,16 +243,16 @@ p {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(340px, 44%);
   align-items: start;
-  gap: 26px;
-  padding: 30px 34px;
-  margin-bottom: 18px;
+  gap: 22px;
+  padding: 22px 28px;
+  margin-bottom: 14px;
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(244, 241, 234, 0.74));
   box-shadow: var(--shadow);
 }
 
 .eyebrow {
-  margin: 0 0 12px;
+  margin: 0 0 8px;
   color: var(--gold);
   font-size: 11px;
   font-weight: 800;
@@ -261,10 +261,10 @@ p {
 }
 
 h1 {
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   max-width: 720px;
-  font-size: clamp(38px, 4.6vw, 60px);
-  line-height: 1.02;
+  font-size: clamp(30px, 3.4vw, 44px);
+  line-height: 1.04;
   letter-spacing: 0;
 }
 
@@ -282,11 +282,11 @@ h3 {
 }
 
 .topbar-copy {
-  max-width: 760px;
+  max-width: 720px;
   margin-bottom: 0;
   color: var(--muted);
-  font-size: 16px;
-  line-height: 1.75;
+  font-size: 14px;
+  line-height: 1.65;
 }
 
 .search {
@@ -298,9 +298,9 @@ h3 {
 .search span {
   position: absolute;
   top: 50%;
-  left: 18px;
-  width: 17px;
-  height: 17px;
+  left: 16px;
+  width: 15px;
+  height: 15px;
   border: 2px solid var(--faint);
   border-radius: 50%;
   transform: translateY(-50%);
@@ -309,9 +309,9 @@ h3 {
 .search span::after {
   content: "";
   position: absolute;
-  right: -7px;
-  bottom: -5px;
-  width: 8px;
+  right: -6px;
+  bottom: -4px;
+  width: 7px;
   height: 2px;
   background: var(--faint);
   transform: rotate(45deg);
@@ -319,14 +319,14 @@ h3 {
 
 .search input {
   width: 100%;
-  height: 56px;
-  padding: 0 18px 0 52px;
+  height: 46px;
+  padding: 0 16px 0 46px;
   color: var(--ink);
   background: rgba(255, 255, 255, 0.92);
   border: 1px solid var(--line-strong);
   border-radius: 14px;
   outline: none;
-  font-size: 18px;
+  font-size: 16px;
   transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
 }
 
