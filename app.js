@@ -732,6 +732,94 @@ function createDraft(categoryLabel) {
   window.open(NOTION_DATABASE_URL, "_blank", "noopener,noreferrer");
 }
 
+function meetingPrompt() {
+  const title = moduleTitle();
+  const overview = moduleOverview[state.module];
+  const recordNames = records
+    .filter((record) => record.module === state.module)
+    .map((record) => record.name)
+    .slice(0, 8)
+    .join("、");
+
+  return `你是 NuLiv Knowledge OS 的知識整理專家。請把我貼上的會議紀錄、逐字稿、錄音摘要或零散筆記，整理成可以放進 Notion 知識庫、也能被網站搜尋與 AI 使用的正式知識內容。
+
+目前要整理進入的分類：${title}
+分類定位：${overview.copy}
+同分類既有資料可參考：${recordNames || "目前尚無同分類資料"}
+
+請依照以下規則整理：
+
+1. 先判斷這份內容應該成為哪一種知識
+- 核心理念
+- 櫃台與門診流程
+- 檢測服務
+- 核心儀器與設備
+- 療程服務與項目
+- 人才培育
+- 喜悅系統
+- SOP
+- 溝通話術
+- 客戶案例
+- FAQ / 常見問題
+- 待更新資料
+
+2. 請輸出一筆或多筆 Notion 知識庫條目，每筆都用以下格式：
+
+【名稱】
+用 12 到 24 個字命名，讓第一線同仁一看就知道用途。
+
+【分類】
+請使用目前分類「${title}」，除非內容明顯更適合其他分類，才提出改分類建議。
+
+【一句話介紹】
+用一句話說明這個知識解決什麼問題。
+
+【核心概念】
+萃取會議中的核心判斷、原則、觀念或決策邏輯。
+
+【白話解釋】
+用新人也看得懂的方式解釋。
+
+【第一線如何應用】
+寫成可以直接用在現場服務、門診、個管、醫護或行政流程的做法。
+
+【SOP / 執行步驟】
+如果內容涉及流程，請列出步驟；如果不是 SOP，請寫「不適用」。
+
+【客戶說明話術】
+整理成可以對客戶或家屬說的自然語氣。
+
+【常見誤解或注意事項】
+列出不能誤講、不能過度承諾、需要確認的風險。
+
+【關聯知識】
+列出可能需要連到哪些既有知識、服務、檢測、儀器、療程或 SOP。
+
+【是否需要更新】
+請判斷是否需要更新 SOP、產品/服務說明、FAQ、訓練內容或系統流程。
+
+【十個關鍵問題更新建議】
+如果這份內容會影響目前分類的 FAQ，請提出應新增或修改的問題與答案。
+
+【根據來源】
+請註明本次整理根據哪一段會議內容、誰的決策、哪個案例或哪份資料。
+
+3. 請不要只是摘要會議。目標不是保存紀錄，而是萃取 NuLiv 可以傳承、訓練、搜尋、被 AI 使用的判斷方式。
+
+以下是我要整理的原始內容：
+`;
+}
+
+async function copyMeetingPrompt() {
+  const prompt = meetingPrompt();
+  try {
+    await navigator.clipboard.writeText(prompt);
+    showToast("已複製會議整理 Prompt，可貼到 Notion AI");
+  } catch (error) {
+    window.prompt("請複製這段 Prompt 到 Notion AI：", prompt);
+  }
+}
+
 function refreshKnowledge() {
   const record = currentRecord();
   state.lastUpdatedAt = new Date().toLocaleString("zh-TW", { hour12: false });
@@ -756,6 +844,7 @@ function bindEvents() {
     renderFaq();
   });
   $("#refreshKnowledgeBtn").addEventListener("click", refreshKnowledge);
+  $("#copyMeetingPromptBtn").addEventListener("click", copyMeetingPrompt);
   bindSidebarResize();
 }
 

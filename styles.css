@@ -462,9 +462,20 @@ h3 {
   min-height: 38px;
 }
 
+.overview-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 10px;
+}
+
 .inline-action {
   width: fit-content;
   margin-top: 10px;
+}
+
+.prompt-btn {
+  color: var(--muted);
 }
 
 .primary-btn:hover,
