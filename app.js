@@ -463,7 +463,6 @@ function renderOverview() {
     <article class="category-card">
       <span>${card.label}</span>
       <p>${card.text}</p>
-      <a href="${NOTION_DATABASE_URL}" target="_blank" rel="noopener noreferrer" data-create-card="${card.label}">到 Notion 新增</a>
     </article>
   `).join("");
 }
@@ -582,8 +581,118 @@ function sourceText() {
   return sources.join("；");
 }
 
+const moduleFaqPrompts = {
+  philosophy: [
+    "NuLiv 的核心理念是什麼？",
+    "為什麼健康不是疾病的反義詞？",
+    "如何判斷客戶真正需要什麼？",
+    "個管師如何把理念轉成服務判斷？",
+    "AI 在 NuLiv 知識系統中應該扮演什麼角色？",
+    "身體韌性、心理韌性與生活韌性如何連在一起？",
+    "需求與想要的差異會如何影響服務建議？",
+    "第一線最常誤解核心理念的地方是什麼？",
+    "哪些理念必須被寫進 SOP 與訓練？",
+    "這個理念目前根據哪些資料整理？"
+  ],
+  frontdesk: [
+    "第一次接觸客戶時最重要的是什麼？",
+    "櫃台如何判斷客戶應進入哪一種服務流程？",
+    "門診前需要先確認哪些資訊？",
+    "電話與現場接待的回應邏輯有何不同？",
+    "家屬詢問時應如何建立信任？",
+    "高焦慮客戶來診時如何安撫？",
+    "哪些情況需要立即轉給個管師或醫護？",
+    "櫃台常見錯誤有哪些？",
+    "門診流程如何和檢測、療程、系統串接？",
+    "這個門診判斷目前根據哪些資料整理？"
+  ],
+  testing: [
+    "檢測服務應該如何對客戶說明？",
+    "檢測前最需要確認的風險與期待是什麼？",
+    "不同檢測適合哪些客群？",
+    "檢測結果應如何轉成後續服務建議？",
+    "客戶質疑檢測必要性時如何回應？",
+    "檢測服務和核心理念如何連結？",
+    "哪些檢測需要優先學習？",
+    "檢測服務常見失敗原因是什麼？",
+    "檢測資料如何更新到知識庫？",
+    "這個檢測回答目前根據哪些資料整理？"
+  ],
+  equipment: [
+    "核心儀器與設備的學習重點是什麼？",
+    "如何向客戶說明儀器的作用機制？",
+    "哪些客戶適合使用目前選取的儀器？",
+    "哪些情況不適合使用儀器？",
+    "操作前需要確認哪些安全事項？",
+    "儀器服務如何和檢測、療程搭配？",
+    "新人最容易搞混哪些設備差異？",
+    "儀器說明如何避免過度承諾？",
+    "設備 SOP 需要保存哪些關鍵步驟？",
+    "這個設備回答目前根據哪些資料整理？"
+  ],
+  therapy: [
+    "療程服務與項目的定位是什麼？",
+    "如何判斷客戶適合哪一種療程？",
+    "療程前應先釐清哪些期待與限制？",
+    "療程如何和檢測結果互相支持？",
+    "療程介紹時最需要避免什麼誤解？",
+    "客戶對價格或效果有疑慮時如何回應？",
+    "不同療程可以如何搭配？",
+    "療程服務常見失敗原因是什麼？",
+    "哪些療程資訊應優先更新 SOP？",
+    "這個療程回答目前根據哪些資料整理？"
+  ],
+  training: [
+    "新人基本訓練第一週最重要的是什麼？",
+    "個管師訓練應優先建立哪些判斷能力？",
+    "醫護部需要掌握哪些知識庫內容？",
+    "個管助理應先熟悉哪些工作流程？",
+    "新人如何從理念進入實際服務？",
+    "訓練內容如何對應檢測、儀器與療程？",
+    "模擬情境應該怎麼設計？",
+    "哪些知識必須每位新人都會查？",
+    "訓練資料更新後誰需要重新學習？",
+    "這個訓練回答目前根據哪些資料整理？"
+  ],
+  systems: [
+    "喜悅系統的整體目的為何？",
+    "門診預約系統應支援哪些工作判斷？",
+    "個管系統需要保存哪些客戶資訊？",
+    "廚房管理如何和健康服務流程銜接？",
+    "環境與公共安全應有哪些基本 SOP？",
+    "系統資料如何回流到知識庫？",
+    "哪些流程需要跨部門同步？",
+    "系統更新時應如何通知第一線？",
+    "哪些系統問題會影響客戶體驗？",
+    "這個系統回答目前根據哪些資料整理？"
+  ]
+};
+
+function buildModuleFaq() {
+  const overview = moduleOverview[state.module];
+  const record = currentRecord();
+  const moduleRecords = records.filter((item) => item.module === state.module);
+  const relatedNames = moduleRecords.map((item) => item.name).slice(0, 5).join("、");
+  const syncNote = window.NULIV_SYNCED_AT
+    ? `Notion 同步時間：${window.NULIV_SYNCED_AT}`
+    : "目前使用已部署資料；Notion 新增後需要完成同步，網站才會更新。";
+  const answers = [
+    overview.copy,
+    record.intro || overview.copy,
+    record.script || record.mechanism || overview.copy,
+    record.sop || `建議先查看「${record.name}」與同分類條目，再轉成現場步驟。`,
+    record.caution || "回答時避免過度承諾，先釐清客戶狀態、需求與安全邊界。",
+    record.relation || `可連結同分類資料：${relatedNames}`,
+    `目前分類共有 ${moduleRecords.length} 筆資料，可優先閱讀：${relatedNames}`,
+    `常見風險來自理解不足、流程斷裂、話術過度簡化；需回到「${overview.title}」的核心邏輯。`,
+    "若此問題影響現場判斷，應更新 Notion 中的知識條目、SOP 或訓練內容。",
+    `${sourceText()}。${syncNote}`
+  ];
+  return (moduleFaqPrompts[state.module] || moduleFaqPrompts.philosophy).map((question, index) => [question, answers[index]]);
+}
+
 function renderFaq() {
-  $("#qaList").innerHTML = buildFaq().map(([question, answer], index) => `
+  $("#qaList").innerHTML = buildModuleFaq().map(([question, answer], index) => `
     <article class="qa-item">
       <button class="qa-question" type="button" data-qa="${index}">
         <span>${String(index + 1).padStart(2, "0")}</span>
