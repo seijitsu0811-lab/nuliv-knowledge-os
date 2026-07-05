@@ -280,7 +280,7 @@ h1 {
 
 h2 {
   margin-bottom: 8px;
-  font-size: 25px;
+  font-size: 24px;
   line-height: 1.2;
   letter-spacing: 0;
 }
@@ -349,8 +349,9 @@ h3 {
 .overview-board {
   display: grid;
   grid-template-columns: minmax(320px, 0.72fr) minmax(0, 1.28fr);
-  gap: 18px;
-  padding: 26px;
+  align-items: start;
+  gap: 16px;
+  padding: 20px 22px;
   margin-bottom: 18px;
 }
 
@@ -360,31 +361,33 @@ h3 {
 
 .overview-copy p {
   color: var(--muted);
-  font-size: 17px;
-  line-height: 1.85;
+  font-size: 15px;
+  line-height: 1.68;
+  margin-bottom: 0;
 }
 
 .category-cards {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 12px;
+  align-items: start;
+  gap: 10px;
 }
 
 .category-card {
   display: grid;
-  gap: 10px;
+  gap: 8px;
   align-content: start;
-  min-height: 132px;
-  padding: 18px 18px 20px;
-  background: linear-gradient(180deg, var(--paper), rgba(255, 241, 239, 0.34));
+  min-height: 118px;
+  padding: 15px 16px;
+  background: rgba(255, 254, 253, 0.76);
   border: 1px solid var(--line);
-  border-radius: 14px;
+  border-radius: 12px;
   box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
 }
 
 .category-card span {
   color: var(--ink);
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 800;
   white-space: nowrap;
 }
@@ -392,8 +395,8 @@ h3 {
 .category-card p {
   margin: 0;
   color: var(--muted);
-  font-size: 14px;
-  line-height: 1.7;
+  font-size: 13px;
+  line-height: 1.58;
 }
 
 .category-card button,
@@ -421,7 +424,7 @@ h3 {
   align-items: flex-start;
   justify-content: space-between;
   gap: 16px;
-  padding: 22px 24px 16px;
+  padding: 20px 24px 14px;
   border-bottom: 1px solid var(--line);
 }
 
@@ -434,9 +437,10 @@ h3 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 42px;
-  padding: 0 16px;
+  min-height: 38px;
+  padding: 0 15px;
   border-radius: 999px;
+  font-size: 14px;
   font-weight: 800;
   text-decoration: none;
   transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
@@ -455,12 +459,12 @@ h3 {
 }
 
 .small-btn {
-  min-height: 40px;
+  min-height: 38px;
 }
 
 .inline-action {
   width: fit-content;
-  margin-top: 14px;
+  margin-top: 10px;
 }
 
 .primary-btn:hover,
