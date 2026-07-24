@@ -21,7 +21,13 @@ const K = {
   caution: "\u6ce8\u610f\u4e8b\u9805",
   relation: "\u95dc\u806f\u77e5\u8b58",
   source: "\u6700\u5f8c\u6574\u7406\u4f86\u6e90",
-  updatedAt: "\u6700\u5f8c\u66f4\u65b0"
+  updatedAt: "\u6700\u5f8c\u66f4\u65b0",
+  approvalStatus: "\u5be9\u6838\u72c0\u614b",
+  reviewerRole: "\u5be9\u6838\u89d2\u8272",
+  reviewedAt: "\u5be9\u6838\u65e5\u671f",
+  expiresAt: "\u6709\u6548\u671f\u9650",
+  sourceUrl: "\u4f86\u6e90\u7db2\u5740",
+  evidenceLevel: "\u8b49\u64da\u7b49\u7d1a"
 };
 
 const F = {
@@ -67,6 +73,12 @@ function toRecord(page) {
     relation: readText(props[K.relation]),
     source: readText(props[K.source]),
     updatedAt: readText(props[K.updatedAt]),
+    approvalStatus: readText(props[K.approvalStatus]),
+    reviewerRole: readText(props[K.reviewerRole]),
+    reviewedAt: readText(props[K.reviewedAt]),
+    expiresAt: readText(props[K.expiresAt]),
+    sourceUrl: readText(props[K.sourceUrl]),
+    evidenceLevel: readText(props[K.evidenceLevel]),
     notionUrl: page.url
   };
 }
@@ -135,4 +147,5 @@ const output = `window.NULIV_SYNCED_AT = ${JSON.stringify(syncedAt)};\n` +
   `window.NULIV_SYNC_FAQS = ${JSON.stringify(faqs, null, 2)};\n`;
 
 fs.writeFileSync("sync-data.js", output, "utf8");
+fs.writeFileSync("knowledge-index.json", `${JSON.stringify(records, null, 2)}\n`, "utf8");
 console.log(`Synced ${records.length} records and ${faqs.length} FAQs from Notion.`);
