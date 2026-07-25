@@ -1,1 +1,53 @@
-[]
+[
+  {
+    "id": "38dad534-2d0c-817b-a978-d60549166e8d",
+    "name": "需要與想要的差異",
+    "category": "喜悅核心理念",
+    "intro": "客戶說出口的是想要，真正推動服務設計的是需要。",
+    "mechanism": "需要不等於想要；服務前先理解人，再選擇方案。",
+    "script": "個管師先聽背景、恐懼與期待，再提出服務路徑。",
+    "sop": "面談時記錄客戶說法、背後需求、優先問題與可行下一步。",
+    "caution": "避免只根據客戶指定項目直接推服務。",
+    "relation": "個管 SOP、服務策略中心、溝通智慧中心",
+    "sourceUrl": "https://app.notion.com/p/38dad5342d0c817ba978d60549166e8d",
+    "approvalStatus": "approved",
+    "reviewerRole": "operations_owner",
+    "reviewedAt": "2026-07-25",
+    "expiresAt": "2027-07-25",
+    "evidenceLevel": "internal_policy"
+  },
+  {
+    "id": "38dad534-2d0c-818b-a9d6-caf5b26c0b15",
+    "name": "健康不是疾病的反義詞",
+    "category": "喜悅核心理念",
+    "intro": "健康是面對複雜環境時仍能恢復、調節、適應與成長的能力。",
+    "mechanism": "身體韌性、心理韌性、生活韌性、生命韌性。",
+    "script": "說明服務時，不只談症狀消除，而是協助客戶建立長期韌性。",
+    "sop": "接待、初談與個管追蹤都先判斷客戶目前失衡的層次。",
+    "caution": "避免把喜悅定位成單一疾病治療中心。",
+    "relation": "需要與想要的差異、生命歷程觀、長壽醫學觀",
+    "sourceUrl": "https://app.notion.com/p/38dad5342d0c818ba9d6caf5b26c0b15",
+    "approvalStatus": "approved",
+    "reviewerRole": "operations_owner",
+    "reviewedAt": "2026-07-25",
+    "expiresAt": "2027-07-25",
+    "evidenceLevel": "internal_policy"
+  },
+  {
+    "id": "38dad534-2d0c-8160-af47-f7733041052b",
+    "name": "新人基本訓練：四週學習路徑",
+    "category": "人才培育",
+    "intro": "新人先理解理念，再進入客群、設備、檢測、療程與情境演練。",
+    "mechanism": "先建立共同語言與服務邏輯，再學細節。",
+    "script": "Day1 核心理念，Day2 客群，Day3 流程，Day4 產品，Day5 模擬情境。",
+    "sop": "每週設定必讀清單、演練題、主管確認與回饋紀錄。",
+    "caution": "新人訓練不是只背資料，要能說明為什麼。",
+    "relation": "喜悅核心理念、核心儀器設備、檢測服務、療程服務",
+    "sourceUrl": "https://app.notion.com/p/38dad5342d0c8160af47f7733041052b",
+    "approvalStatus": "approved",
+    "reviewerRole": "operations_owner",
+    "reviewedAt": "2026-07-25",
+    "expiresAt": "2027-07-25",
+    "evidenceLevel": "operational_sop"
+  }
+]
