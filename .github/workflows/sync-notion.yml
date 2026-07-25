@@ -27,12 +27,12 @@ jobs:
 
       - name: Commit synced data
         run: |
-          if git diff --quiet sync-data.js; then
+          if git diff --quiet sync-data.js knowledge-index.json; then
             echo "No changes to commit."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add sync-data.js
-          git commit -m "Sync Notion knowledge data"
+          git add sync-data.js knowledge-index.json
+          git commit -m "Sync governed Notion knowledge index"
           git push
