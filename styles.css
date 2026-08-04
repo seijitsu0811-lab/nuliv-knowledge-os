@@ -665,6 +665,33 @@ h3 {
   line-height: 1.75;
 }
 
+.doc-links {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.doc-links a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 42px;
+  padding: 0 12px;
+  color: var(--brand-dark);
+  background: var(--green-soft);
+  border: 1px solid #bfd9c8;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.doc-links a::after {
+  content: "↗";
+  color: var(--muted);
+  font-weight: 700;
+}
+
 .queue-list {
   display: grid;
   gap: 10px;
