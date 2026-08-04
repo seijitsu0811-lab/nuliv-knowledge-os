@@ -23,6 +23,11 @@ function entry(module, data) {
     sop: "",
     caution: "",
     relation: "",
+    audience: "",
+    risk: "",
+    evidence: "待驗證",
+    coreFit: "未判定",
+    useCases: "待補",
     source: "網站內建資料",
     ...data
   };
@@ -38,7 +43,12 @@ const seedRecords = [
     script: "我們會先理解你現在最迫切想處理什麼、誰支持你、你願意做到哪一步，再一起安排適合的下一步。",
     sop: "每次整理新知識或個案，先回到人本核心、信任建立、四端理解與閉環服務。",
     caution: "不要只依病名或單一療法下結論，也不要把輔助支持說成主要治療。",
-    relation: "四端理解、閉環服務、個案知識庫"
+    relation: "四端理解、閉環服務、個案知識庫",
+    audience: "所有新進員工、個管師、主管、未來 AI 回答系統",
+    risk: "若沒有這條核心，知識庫會變成零散資料庫，甚至把療法推銷放在理解人之前。",
+    evidence: "老闆觀點",
+    coreFit: "符合",
+    useCases: "教育訓練、個管師、業務、AI問答"
   }),
   entry("philosophy", {
     name: "四端理解模型",
@@ -49,7 +59,12 @@ const seedRecords = [
     script: "我們會一起看目前醫院治療到哪裡、喜悅可以支持什麼、你自己的感受，以及家人可以怎麼協助。",
     sop: "建立個案時，四端資訊缺一不可；不足處標記待補。",
     caution: "家屬意見不能取代病人意願；喜悅建議不能取代主治醫師治療。",
-    relation: "個案模板、閉環服務"
+    relation: "個案模板、閉環服務",
+    audience: "個案管理、初談、會議紀錄整理",
+    risk: "四端資料不足時，不可直接產生個案判斷或療程建議。",
+    evidence: "老闆觀點",
+    coreFit: "符合",
+    useCases: "個案分析、個管師、教育訓練、AI問答"
   }),
   entry("philosophy", {
     name: "喜悅閉環服務",
@@ -60,7 +75,12 @@ const seedRecords = [
     script: "我們不是做一次服務就結束，而是陪你看每一步有沒有真正讓身體與生活變好。",
     sop: "建立關係、收集資料、加強檢查、建立計畫、遠距監測、執行、before/after、修正。",
     caution: "閉環若沒有紀錄與追蹤，就會退回個人經驗，無法成為知識庫資產。",
-    relation: "個管系統、檢測服務、個案知識庫"
+    relation: "個管系統、檢測服務、個案知識庫",
+    audience: "個管師、醫護、主管、服務設計",
+    risk: "沒有紀錄與追蹤的服務不可直接作為成功案例或標準教材。",
+    evidence: "老闆觀點",
+    coreFit: "符合",
+    useCases: "SOP、個管師、個案分析、教育訓練"
   }),
   entry("testing", {
     name: "HRV 身心聯動監測",
@@ -71,7 +91,12 @@ const seedRecords = [
     script: "它不是看心臟有沒有病，而是看身體調節壓力的能力。",
     sop: "安靜休息、配戴感測器、避免說話與移動、完成後解讀趨勢。",
     caution: "心律不整、藥物、咖啡因或睡眠不足都可能影響結果。",
-    relation: "睡眠方案、慢性疲勞、個管師訓練"
+    relation: "睡眠方案、慢性疲勞、個管師訓練",
+    audience: "睡眠差、壓力恢復差、慢性疲勞與需追蹤自律神經狀態者",
+    risk: "不可把 HRV 當成單一診斷依據。",
+    evidence: "醫學文獻",
+    coreFit: "符合",
+    useCases: "檢測服務、個管師、衛教、AI問答"
   }),
   entry("equipment", {
     name: "熱療艙",
@@ -82,7 +107,12 @@ const seedRecords = [
     script: "熱療不是單純流汗，而是用可控溫度讓循環和放鬆反應啟動。",
     sop: "確認禁忌、量測狀態、補水、設定溫度與時間、觀察、緩和休息。",
     caution: "發燒、急性發炎、懷孕、高風險心血管狀態需先評估。",
-    relation: "THZ、IMRS、慢性疲勞"
+    relation: "THZ、IMRS、慢性疲勞",
+    audience: "循環恢復、放鬆支持、慢性疲勞與生活恢復需求者",
+    risk: "高風險心血管狀態、急性發炎或不適者需醫護評估。",
+    evidence: "內部觀察",
+    coreFit: "需修正",
+    useCases: "醫護、衛教、SOP、AI問答"
   }),
   entry("therapy", {
     name: "癌症整合照護",
@@ -93,7 +123,12 @@ const seedRecords = [
     script: "我們不取代主治醫師，而是協助您在治療期間把體力與恢復照顧好。",
     sop: "確認主治醫療計畫、整理檢查資料、安排支持方案、追蹤副作用。",
     caution: "不得干擾正規治療，也不得承諾療效。",
-    relation: "CTC 細胞檢測、精準營養、個管師訓練"
+    relation: "CTC 細胞檢測、精準營養、個管師訓練",
+    audience: "癌症治療中、術前術後、重大疾病照護需求者與家屬",
+    risk: "所有建議必須與主治醫療方向並行，不可取代或延誤醫院治療。",
+    evidence: "內部案例",
+    coreFit: "符合",
+    useCases: "個案分析、個管師、衛教、業務"
   }),
   entry("training", {
     name: "個管師訓練",
@@ -104,7 +139,12 @@ const seedRecords = [
     script: "我會先了解您目前最困擾的狀態，再整理適合的檢測、療程與追蹤順序。",
     sop: "初談、需求判斷、方案整理、LINE 跟進、回診提醒、療程後追蹤。",
     caution: "不要越權做醫療判斷，也不要把療程說成保證。",
-    relation: "需要與想要的差異、癌症整合照護、門診預約"
+    relation: "需要與想要的差異、癌症整合照護、門診預約",
+    audience: "個管師、新人訓練、服務主管",
+    risk: "個管師可整理與追蹤脈絡，但醫療判斷需回到醫師與醫院端。",
+    evidence: "內部案例",
+    coreFit: "符合",
+    useCases: "教育訓練、個管師、SOP、AI問答"
   })
 ];
 
@@ -127,6 +167,11 @@ function normalizeSyncedRecord(item, index) {
     sop: item.sop || item["SOP"] || "",
     caution: item.caution || item["注意事項"] || "",
     relation: item.relation || item["關聯知識"] || "",
+    audience: item.audience || item["適用對象"] || "",
+    risk: item.risk || item["不適用/風險"] || item["不適用／風險"] || "",
+    evidence: item.evidence || item["證據等級"] || "待驗證",
+    coreFit: item.coreFit || item["喜悅核心符合度"] || "未判定",
+    useCases: item.useCases || item["可用場景"] || "待補",
     source: item.source || item["最後整理來源"] || "Notion",
     notionUrl: item.notionUrl
   });
@@ -214,6 +259,7 @@ function answerQuestion(question) {
   const concepts = sources.map((record) => `<li><strong>${escapeHtml(record.name)}</strong>：${escapeHtml(record.intro || record.mechanism || "待補核心概念")}</li>`).join("");
   const actions = sources.map((record) => record.sop || record.script).filter(Boolean).slice(0, 3).map((text) => `<li>${escapeHtml(text)}</li>`).join("");
   const cautions = sources.map((record) => record.caution).filter(Boolean).slice(0, 3).map((text) => `<li>${escapeHtml(text)}</li>`).join("");
+  const review = sources.map((record) => `<li><strong>${escapeHtml(record.name)}</strong>：證據等級 ${escapeHtml(record.evidence)}，核心符合度 ${escapeHtml(record.coreFit)}，可用場景 ${escapeHtml(record.useCases)}</li>`).join("");
   const citations = sources.map((record, index) => citationChip(record, index + 1)).join("");
 
   return `
@@ -226,6 +272,8 @@ function answerQuestion(question) {
     <ol>${actions || "<li>目前來源尚未整理成 SOP，建議先補「第一線應用」與「執行步驟」。</li>"}</ol>
     <h3>注意邊界</h3>
     <ol>${cautions || "<li>資料不足時需標記待驗證，不可把內部觀察包裝成醫療結論。</li>"}</ol>
+    <h3>入庫審核狀態</h3>
+    <ol>${review}</ol>
     <h3>來源</h3>
     <div class="citation-row">${citations}</div>
   `;
@@ -308,12 +356,24 @@ function renderRecordGrid() {
         <strong>${escapeHtml(record.name)}</strong>
       </div>
       <p>${escapeHtml(record.intro || record.mechanism || "待補一句話介紹")}</p>
+      <div class="review-badges">
+        <b class="${reviewClass(record.coreFit)}">${escapeHtml(record.coreFit)}</b>
+        <b>${escapeHtml(record.evidence)}</b>
+        <b>${escapeHtml(record.useCases)}</b>
+      </div>
       <footer>
         <small>${escapeHtml(record.priority)}</small>
         <small>${escapeHtml(record.source || "來源待補")}</small>
       </footer>
     </article>
   `).join("") : `<p class="empty wide">找不到資料。請到 Notion 新增知識，或放寬搜尋條件。</p>`;
+}
+
+function reviewClass(value) {
+  if (value === "符合") return "ok";
+  if (value === "需修正") return "warn";
+  if (value === "不符合") return "danger";
+  return "";
 }
 
 function renderChat() {
@@ -335,6 +395,21 @@ function renderQueue() {
       <span>${item.owner} · ${item.due}</span>
     </article>
   `).join("");
+}
+
+function renderReviewStats() {
+  const total = records.length;
+  const fit = records.filter((record) => record.coreFit === "符合").length;
+  const needsFix = records.filter((record) => record.coreFit === "需修正").length;
+  const unreviewed = records.filter((record) => !record.coreFit || record.coreFit === "未判定").length;
+  const evidenceMissing = records.filter((record) => !record.evidence || record.evidence === "待驗證").length;
+  $("#reviewStats").innerHTML = `
+    <article><strong>${total}</strong><span>全部知識</span></article>
+    <article><strong>${fit}</strong><span>符合核心</span></article>
+    <article><strong>${needsFix}</strong><span>需修正</span></article>
+    <article><strong>${unreviewed}</strong><span>未判定</span></article>
+    <article><strong>${evidenceMissing}</strong><span>待驗證</span></article>
+  `;
 }
 
 function renderSyncStatus() {
@@ -387,6 +462,7 @@ function render() {
   renderRecordGrid();
   renderChat();
   renderQueue();
+  renderReviewStats();
 }
 
 bindEvents();

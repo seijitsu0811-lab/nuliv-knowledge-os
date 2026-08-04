@@ -20,6 +20,11 @@ const K = {
   sop: "SOP",
   caution: "\u6ce8\u610f\u4e8b\u9805",
   relation: "\u95dc\u806f\u77e5\u8b58",
+  audience: "\u9069\u7528\u5c0d\u8c61",
+  risk: "\u4e0d\u9069\u7528/\u98a8\u96aa",
+  evidence: "\u8b49\u64da\u7b49\u7d1a",
+  coreFit: "\u559c\u6085\u6838\u5fc3\u7b26\u5408\u5ea6",
+  useCases: "\u53ef\u7528\u5834\u666f",
   source: "\u6700\u5f8c\u6574\u7406\u4f86\u6e90",
   updatedAt: "\u6700\u5f8c\u66f4\u65b0"
 };
@@ -65,6 +70,11 @@ function toRecord(page) {
     sop: readText(props[K.sop]),
     caution: readText(props[K.caution]),
     relation: readText(props[K.relation]),
+    audience: readText(props[K.audience]),
+    risk: readText(props[K.risk]),
+    evidence: readText(props[K.evidence]),
+    coreFit: readText(props[K.coreFit]),
+    useCases: readText(props[K.useCases]),
     source: readText(props[K.source]),
     updatedAt: readText(props[K.updatedAt]),
     notionUrl: page.url
