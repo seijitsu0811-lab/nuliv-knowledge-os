@@ -3,89 +3,143 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NuLiv Knowledge OS</title>
+  <title>NuLiv Knowledge OS v0.2</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
-  <div class="app-shell" id="appShell">
-    <aside class="sidebar" id="sidebar">
+  <div class="notebook-shell">
+    <aside class="source-panel">
       <div class="brand">
-        <div class="brand-mark">N</div>
+        <div class="brand-mark">喜</div>
         <div>
-          <strong>NuLiv</strong>
-          <span>Knowledge OS</span>
+          <strong>喜悅 NotebookLM</strong>
+          <span>Knowledge OS v0.2</span>
         </div>
       </div>
-      <nav id="moduleNav" class="module-nav" aria-label="知識分類"></nav>
-      <div class="resize-hint">拖曳右側邊線可調整寬度</div>
-    </aside>
-    <button id="sidebarResize" class="sidebar-resize" type="button" aria-label="調整側欄寬度"></button>
 
-    <main class="content">
-      <header class="topbar">
-        <div class="title-group">
-          <p class="eyebrow">Maison Knowledge System</p>
-          <h1>NuLiv Knowledge OS</h1>
-          <p class="topbar-copy">把喜悅的理念、門診、檢測、儀器、療程、人才培育與營運系統整理成可搜尋、可新增、可更新、可被 AI 使用的公司級知識作業系統。</p>
+      <button id="addKnowledgeBtn" class="primary-action" type="button">＋ 新增知識到 Notion</button>
+
+      <section class="panel-card">
+        <div class="panel-title">
+          <span>知識分類</span>
+          <small id="syncStatus">讀取中</small>
         </div>
-        <label class="search">
-          <span aria-hidden="true"></span>
-          <input id="searchInput" type="search" placeholder="搜尋理念、門診、檢測、儀器、療程、SOP、訓練" />
+        <nav id="moduleNav" class="module-nav" aria-label="知識分類"></nav>
+      </section>
+
+      <section class="panel-card">
+        <div class="panel-title">
+          <span>來源</span>
+          <button id="selectAllSourcesBtn" type="button">全選</button>
+        </div>
+        <label class="source-search">
+          <input id="sourceSearch" type="search" placeholder="搜尋來源：睡眠、熱療、癌症..." />
         </label>
+        <div id="sourceList" class="source-list"></div>
+      </section>
+    </aside>
+
+    <main class="conversation-panel">
+      <header class="notebook-header">
+        <div>
+          <p class="eyebrow">NuLiv Human-Centered Knowledge System</p>
+          <h1>喜悅人本知識庫</h1>
+          <p>
+            以「先理解人，再理解病」為核心，將理念、個案、SOP、療法、檢測與訓練資料整理成可查詢、可更新、可被 AI 使用的內部知識系統。
+          </p>
+        </div>
+        <div class="version-card">
+          <strong>v0.2 原型</strong>
+          <span>目前為 Notion 同步＋規則式整合。下一階段接 AI/RAG 後，才會具備真正語言模型推理與引用。</span>
+        </div>
       </header>
 
-      <section class="overview-board">
-        <div class="overview-copy">
-          <p class="eyebrow" id="overviewEyebrow">Knowledge Architecture</p>
-          <h2 id="overviewTitle">喜悅核心理念</h2>
-          <p id="overviewCopy"></p>
-          <div class="overview-actions">
-            <a id="overviewAddBtn" class="secondary-btn" href="https://app.notion.com/p/4d6710708c984ac588482c61523a955d" target="_blank" rel="noopener noreferrer">到 Notion 新增此分類</a>
-            <button id="copyMeetingPromptBtn" class="secondary-btn prompt-btn" type="button">複製會議整理 Prompt</button>
-          </div>
-        </div>
-        <div id="categoryCards" class="category-cards"></div>
+      <section class="principle-strip">
+        <article>
+          <span>01</span>
+          <strong>人是起點</strong>
+          <p>不把個案簡化成病名或數值，先理解意願、急迫性、支持系統與生活脈絡。</p>
+        </article>
+        <article>
+          <span>02</span>
+          <strong>信任是方法</strong>
+          <p>見面前建立第一步信任，服務中用檢測、計畫、追蹤與 before/after 建立持續信任。</p>
+        </article>
+        <article>
+          <span>03</span>
+          <strong>閉環是系統</strong>
+          <p>醫院端、喜悅端、病人端、家屬端共同回饋，讓計畫持續修正。</p>
+        </article>
       </section>
 
-      <section class="workspace">
-        <section class="library">
-          <div class="section-head">
-            <div>
-              <p class="eyebrow" id="moduleName">Joy Philosophy</p>
-              <h2 id="moduleTitle">喜悅核心理念</h2>
-            </div>
-          </div>
-          <div id="recordTable" class="notion-table"></div>
-        </section>
+      <section class="chat-card" id="chatSection">
+        <div id="chatMessages" class="chat-messages"></div>
+        <form id="askForm" class="ask-box">
+          <textarea id="askInput" rows="1" placeholder="根據已選來源提問，例如：糖尿病如何從熱療與音療分析？"></textarea>
+          <button type="submit" aria-label="送出問題">➜</button>
+        </form>
+      </section>
 
-        <section id="recordDetail" class="detail" aria-live="polite"></section>
-
-        <section class="qa-panel">
-          <div class="section-head">
-            <div>
-              <p class="eyebrow">Knowledge QA</p>
-              <h2>整合回答：固定十題問答</h2>
-            </div>
-            <button id="refreshKnowledgeBtn" class="primary-btn small-btn" type="button">知識更新與整理</button>
+      <section class="library-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Selected Knowledge</p>
+            <h2 id="moduleTitle">目前分類</h2>
           </div>
-          <div id="updateNote" class="update-note"></div>
-          <div id="qaList" class="qa-list"></div>
-        </section>
-
-        <section class="update-panel">
-          <div class="section-head">
-            <div>
-              <p class="eyebrow">Update Queue</p>
-              <h2>待補資料</h2>
-            </div>
-          </div>
-          <div id="queueList" class="queue-list"></div>
-        </section>
+          <input id="globalSearch" type="search" placeholder="搜尋所有知識條目" />
+        </div>
+        <div id="recordGrid" class="record-grid"></div>
       </section>
     </main>
+
+    <aside class="workspace-panel">
+      <section class="workspace-card">
+        <div class="panel-title">
+          <span>工作室</span>
+          <small>可產出內容</small>
+        </div>
+        <div class="tool-grid">
+          <button data-tool="brief" type="button">簡報</button>
+          <button data-tool="script" type="button">衛教稿</button>
+          <button data-tool="quiz" type="button">測驗</button>
+          <button data-tool="cards" type="button">學習卡</button>
+          <button data-tool="audio" type="button">音檔腳本</button>
+          <button data-tool="video" type="button">影片大綱</button>
+        </div>
+      </section>
+
+      <section class="workspace-card">
+        <div class="panel-title">
+          <span>新知識入庫判斷</span>
+        </div>
+        <ol class="review-flow">
+          <li>是否符合喜悅以人為本核心理念</li>
+          <li>歸類到理念、個案、檢測、儀器、療程、訓練或系統</li>
+          <li>標示證據等級：醫學文獻、內部案例、老闆觀點、待驗證</li>
+          <li>整理成可訓練、可搜尋、可問答的知識條目</li>
+          <li>固定十題與教材內容隨知識庫更新</li>
+        </ol>
+      </section>
+
+      <section class="workspace-card">
+        <div class="panel-title">
+          <span>目前答案限制</span>
+        </div>
+        <p class="muted">
+          這個版本會根據已選來源做結構化整理，但不是語言模型。若要達到 NotebookLM 那種追問、推理與引用段落，需要下一階段接 AI/RAG。
+        </p>
+      </section>
+
+      <section class="workspace-card">
+        <div class="panel-title">
+          <span>待補資料</span>
+        </div>
+        <div id="queueList" class="queue-list"></div>
+      </section>
+    </aside>
   </div>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
