@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NuLiv Knowledge OS v0.2</title>
+  <title>NuLiv Knowledge OS</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -16,7 +16,7 @@
         <div class="brand-mark">喜</div>
         <div>
           <strong>喜悅 NotebookLM</strong>
-          <span>Knowledge OS v0.3</span>
+          <span>Knowledge OS</span>
         </div>
       </div>
 
@@ -48,16 +48,16 @@
           <p class="eyebrow">NuLiv Human-Centered Knowledge System</p>
           <h1>喜悅人本知識庫</h1>
           <p>
-            以「先理解人，再理解病」為核心，將理念、個案、SOP、療法、檢測與訓練資料整理成可查詢、可更新、可被 AI 使用的內部知識系統。
+            先選來源，再提問。系統會依目前知識庫整理回答、標示邊界並列出來源。
           </p>
         </div>
         <div class="version-card">
-          <strong>v0.2 原型</strong>
-          <span>目前為 Notion 同步＋規則式整合。下一階段接 AI/RAG 後，才會具備真正語言模型推理與引用。</span>
+          <strong>v0.5</strong>
+          <span>睡眠資料已入庫示範。正式 AI/RAG 尚未接入。</span>
         </div>
       </header>
 
-      <section class="principle-strip">
+      <section class="principle-strip compact-hidden">
         <article>
           <span>01</span>
           <strong>人是起點</strong>
@@ -83,7 +83,7 @@
         </form>
       </section>
 
-      <section class="library-section">
+      <section class="library-section compact-hidden">
         <div class="section-heading">
           <div>
             <p class="eyebrow">Selected Knowledge</p>
@@ -113,67 +113,52 @@
 
       <section class="workspace-card">
         <div class="panel-title">
-          <span>入庫審核狀態</span>
-          <small>v0.3</small>
-        </div>
-        <div id="reviewStats" class="review-stats"></div>
-      </section>
-
-      <section class="workspace-card">
-        <div class="panel-title">
-          <span>新知識入庫判斷</span>
-        </div>
-        <ol class="review-flow">
-          <li>是否符合喜悅以人為本核心理念</li>
-          <li>歸類到理念、個案、檢測、儀器、療程、訓練或系統</li>
-          <li>標示證據等級：醫學文獻、內部案例、老闆觀點、待驗證</li>
-          <li>整理成可訓練、可搜尋、可問答的知識條目</li>
-          <li>固定十題與教材內容隨知識庫更新</li>
-        </ol>
-      </section>
-
-      <section class="workspace-card">
-        <div class="panel-title">
-          <span>目前答案限制</span>
+          <span>狀態</span>
         </div>
         <p class="muted">
-          這個版本會根據已選來源做結構化整理，但不是語言模型。若要達到 NotebookLM 那種追問、推理與引用段落，需要下一階段接 AI/RAG。
+          目前是知識庫展示與規則式整理版，答案可作為內部討論草稿。
         </p>
       </section>
 
-      <section class="workspace-card">
-        <div class="panel-title">
-          <span>Notion 後台 v0.4</span>
-          <small>下一步</small>
+      <details class="workspace-card system-details">
+        <summary>系統資訊與後台文件</summary>
+        <div class="system-stack">
+          <section>
+            <div class="panel-title">
+              <span>入庫審核狀態</span>
+              <small>v0.3</small>
+            </div>
+            <div id="reviewStats" class="review-stats"></div>
+          </section>
+          <section>
+            <div class="panel-title">
+              <span>新知識入庫判斷</span>
+            </div>
+            <ol class="review-flow">
+              <li>是否符合喜悅以人為本核心理念</li>
+              <li>歸類到正確分類</li>
+              <li>標示證據等級與風險邊界</li>
+              <li>整理成可訓練、可搜尋、可問答的知識</li>
+            </ol>
+          </section>
+          <section>
+            <div class="panel-title">
+              <span>後台文件</span>
+            </div>
+            <div class="doc-links">
+              <a href="./NOTION_SETUP_V04.md" target="_blank" rel="noopener noreferrer">欄位設定清單</a>
+              <a href="./NOTION_AI_PROMPT_V04.md" target="_blank" rel="noopener noreferrer">Notion AI Prompt</a>
+              <a href="./SLEEP_KNOWLEDGE_V05.md" target="_blank" rel="noopener noreferrer">睡眠入庫報告</a>
+            </div>
+          </section>
+          <section>
+            <div class="panel-title">
+              <span>待補資料</span>
+            </div>
+            <div id="queueList" class="queue-list"></div>
+          </section>
         </div>
-        <p class="muted">
-          先把 Notion 知識庫欄位補齊，之後會議、個案、文獻或老闆觀點才能同步成可審核、可搜尋、可給 AI 使用的知識。
-        </p>
-        <div class="doc-links">
-          <a href="./NOTION_SETUP_V04.md" target="_blank" rel="noopener noreferrer">欄位設定清單</a>
-          <a href="./NOTION_AI_PROMPT_V04.md" target="_blank" rel="noopener noreferrer">Notion AI Prompt</a>
-        </div>
-      </section>
-
-      <section class="workspace-card">
-        <div class="panel-title">
-          <span>v0.5 實戰入庫</span>
-          <small>睡眠資料</small>
-        </div>
-        <p class="muted">
-          已將「睡眠相關知識整理報告」拆成多筆可搜尋、可審核、可問答的知識條目，作為第一批真實資料測試。
-        </p>
-        <div class="doc-links">
-          <a href="./SLEEP_KNOWLEDGE_V05.md" target="_blank" rel="noopener noreferrer">睡眠入庫報告</a>
-        </div>
-      </section>
-
-      <section class="workspace-card">
-        <div class="panel-title">
-          <span>待補資料</span>
-        </div>
-        <div id="queueList" class="queue-list"></div>
-      </section>
+      </details>
     </aside>
   </div>
 
