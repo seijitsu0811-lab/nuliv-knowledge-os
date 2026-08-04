@@ -450,6 +450,11 @@ h3 {
   padding-left: 22px;
 }
 
+.message ul {
+  margin: 8px 0 0;
+  padding-left: 20px;
+}
+
 .answer-warning {
   padding: 12px;
   background: var(--pink-soft);

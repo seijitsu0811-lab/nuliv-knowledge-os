@@ -29,6 +29,13 @@ medical path, and improve the closed-loop care process.
 | 關聯知識 | Related knowledge | THZ、IMRS、慢性疲勞 |
 | 適用對象 | Who this helps | 睡眠差、慢性疲勞、循環恢復需求 |
 | 不適用/風險 | Who should not use it or needs review | 高風險心血管狀態需先評估 |
+| 個案歷程 | Case timeline from first contact to follow-up | 初談、檢測、介入、追蹤、再檢測 |
+| 互動方式 | How the team built trust and interacted | 先確認迫切需求與意願，再建立夥伴關係 |
+| 使用方法/介入方法 | What NuLiv did for the case | 睡眠支持、營養調整、熱療、遠距追蹤 |
+| 支持系統 | Who supported the case | 病人、家屬、醫院端、喜悅個管師 |
+| 改善結果 | Subjective and objective before/after outcome | 睡眠改善、體力提升、數據變化 |
+| 追蹤計畫 | Next follow-up loop | 兩週後回看 HRV、睡眠與主觀感受 |
+| 學習重點 | Reusable learning extracted from the case | 可沉澱為個管 SOP 或業務案例 |
 | 證據等級 | Evidence classification | 醫學文獻 / 內部案例 / 老闆觀點 / 待驗證 |
 | 喜悅核心符合度 | Whether it matches NuLiv principles | 符合 / 需修正 / 不符合 |
 | 可用場景 | Where this can be used | 教育訓練、個管、業務、衛教 |
@@ -79,3 +86,19 @@ An item is AI-ready only when:
 
 Items marked `待驗證`, `不符合`, or missing source should be searchable but
 must not be used as a final authoritative answer.
+
+## Case Journey Fields
+
+Case records are first-class knowledge assets. They should not be stored as
+plain meeting summaries only. A useful case record should preserve:
+
+- `個案歷程`: what happened from first contact to follow-up.
+- `互動方式`: how NuLiv built trust and clarified the person's real need.
+- `使用方法/介入方法`: what was actually done.
+- `支持系統`: who supported the person, including family, hospital, and NuLiv.
+- `改善結果`: what changed, including both subjective feelings and objective data.
+- `追蹤計畫`: what should be checked next.
+- `學習重點`: what can become training material, SOP, marketing proof, or future AI reasoning material.
+
+Case records must be anonymized before being used for internal training,
+AI retrieval, or external communication.

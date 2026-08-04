@@ -31,6 +31,14 @@ Recommended Notion database URL:
 | 關聯知識 | Text | Optional | Related knowledge items |
 | 適用對象 | Text | Yes | Who this knowledge applies to |
 | 不適用/風險 | Text | Yes | Who should avoid it or needs review |
+| 個案歷程 | Text | Required for case records | From first contact to follow-up |
+| 互動方式 | Text | Required for case records | How trust and partnership were built |
+| 使用方法 | Text | Required for case records | What NuLiv actually did |
+| 介入方法 | Text | Optional | Alternative name for 使用方法 |
+| 支持系統 | Text | Required for case records | Patient, family, hospital, NuLiv team |
+| 改善結果 | Text | Required for case records | Before/after, subjective and objective |
+| 追蹤計畫 | Text | Required for case records | Next loop and monitoring plan |
+| 學習重點 | Text | Required for case records | What can become SOP, training, or sales material |
 | 證據等級 | Select | Yes | Evidence classification |
 | 喜悅核心符合度 | Select | Yes | Human-centered fit |
 | 可用場景 | Multi-select | Yes | Where this item can be used |
@@ -42,6 +50,7 @@ Recommended Notion database URL:
 Use exactly these labels so the website can classify records correctly:
 
 - 喜悅核心理念
+- 個案歷程
 - 櫃台與門診
 - 檢測服務
 - 核心儀器與設備

@@ -1,11 +1,12 @@
 const modules = [
   { key: "philosophy", code: "1", name: "Joy Philosophy", title: "喜悅核心理念" },
-  { key: "frontdesk", code: "2", name: "Front Desk & Clinic", title: "櫃台與門診" },
-  { key: "testing", code: "3", name: "Testing Service", title: "檢測服務" },
-  { key: "equipment", code: "4", name: "Core Equipment", title: "核心儀器與設備" },
-  { key: "therapy", code: "5", name: "Therapy Service", title: "療程服務與項目" },
-  { key: "training", code: "6", name: "Training OS", title: "人才培育" },
-  { key: "systems", code: "7", name: "Joy Systems", title: "喜悅系統" }
+  { key: "case", code: "2", name: "Case Journey", title: "個案歷程" },
+  { key: "frontdesk", code: "3", name: "Front Desk & Clinic", title: "櫃台與門診" },
+  { key: "testing", code: "4", name: "Testing Service", title: "檢測服務" },
+  { key: "equipment", code: "5", name: "Core Equipment", title: "核心儀器與設備" },
+  { key: "therapy", code: "6", name: "Therapy Service", title: "療程服務與項目" },
+  { key: "training", code: "7", name: "Training OS", title: "人才培育" },
+  { key: "systems", code: "8", name: "Joy Systems", title: "喜悅系統" }
 ];
 
 const NOTION_DATABASE_URL = "https://app.notion.com/p/4d6710708c984ac588482c61523a955d";
@@ -25,6 +26,13 @@ function entry(module, data) {
     relation: "",
     audience: "",
     risk: "",
+    caseJourney: "",
+    interaction: "",
+    interventions: "",
+    supporters: "",
+    outcomes: "",
+    followUp: "",
+    lessons: "",
     evidence: "待驗證",
     coreFit: "未判定",
     useCases: "待補",
@@ -34,6 +42,29 @@ function entry(module, data) {
 }
 
 const seedRecords = [
+  entry("case", {
+    id: "case-journey-template",
+    name: "個案歷程標準欄位",
+    category: "個案知識資產",
+    priority: "高：必學",
+    intro: "每一個服務個案都要記錄從初次接觸、建立信任、檢測、介入、追蹤到改善結果的完整歷程。",
+    mechanism: "個案不是單一病名，而是由意願、急迫性、支持系統、醫院端治療方向、喜悅端輔助方案、生活習慣與身心狀態共同形成的動態資料。",
+    caseJourney: "初次接觸前蒐集資料，釐清個案最迫切想處理的問題，再確認病人端、家屬端、醫院端與喜悅端各自角色。",
+    interaction: "以夥伴關係建立信任：先理解人，再理解病；先確認意願與能力，再討論可執行方案。",
+    interventions: "檢測、改善計畫、營養與生活調整、睡眠支持、療程服務、遠距追蹤、before/after 數據回看。",
+    supporters: "病人本人、家屬、醫院端醫療團隊、喜悅個管師、營養/療程/門診團隊。",
+    outcomes: "改善項目需記錄主觀感受、客觀數據、睡眠/體力/情緒/疼痛/生活功能變化，以及未改善或反覆處。",
+    followUp: "每次追蹤都要更新：目前狀態、下一步、阻礙、誰需要介入、是否需要修正方案。",
+    lessons: "可沉澱成教材、業務案例、個管判斷規範、服務 SOP 與常見 QA。",
+    sop: "新增個案資料時，至少填寫：個案背景、迫切需求、意願能力、支持系統、醫院端進度、喜悅端介入、互動方式、改善結果、下一步追蹤、可學習經驗。",
+    caution: "個案資料必須匿名化；不能把單一案例直接當成醫療結論；未經審核前只能作為內部學習與假設生成。",
+    relation: "喜悅核心理念、四端理解模型、檢測服務、療程服務、個管師教育訓練、業務案例。",
+    audience: "個管師、醫護、業務、教育訓練、老闆決策討論。",
+    risk: "若缺少追蹤與 before/after，個案只會變成故事，無法變成可複用的知識。",
+    evidence: "內部案例",
+    coreFit: "符合",
+    useCases: "個案分析、教育訓練、業務、AI問答"
+  }),
   entry("philosophy", {
     name: "喜悅人本核心理念",
     category: "核心哲學",
@@ -169,6 +200,13 @@ function normalizeSyncedRecord(item, index) {
     relation: item.relation || item["關聯知識"] || "",
     audience: item.audience || item["適用對象"] || "",
     risk: item.risk || item["不適用/風險"] || item["不適用／風險"] || "",
+    caseJourney: item.caseJourney || item["個案歷程"] || item["服務歷程"] || "",
+    interaction: item.interaction || item["互動方式"] || item["信任建立"] || "",
+    interventions: item.interventions || item["使用方法"] || item["介入方法"] || item["做了什麼"] || "",
+    supporters: item.supporters || item["支持系統"] || item["誰支持"] || "",
+    outcomes: item.outcomes || item["改善結果"] || item["獲得改善"] || "",
+    followUp: item.followUp || item["追蹤計畫"] || item["下一步追蹤"] || "",
+    lessons: item.lessons || item["學習重點"] || item["可沉澱規範"] || "",
     evidence: item.evidence || item["證據等級"] || "待驗證",
     coreFit: item.coreFit || item["喜悅核心符合度"] || "未判定",
     useCases: item.useCases || item["可用場景"] || "待補",
@@ -213,7 +251,26 @@ function moduleTitle(key = state.module) {
 }
 
 function textOf(record) {
-  return [record.name, record.category, record.intro, record.mechanism, record.script, record.sop, record.caution, record.relation, record.source].join(" ");
+  return [
+    record.name,
+    record.category,
+    record.intro,
+    record.mechanism,
+    record.script,
+    record.sop,
+    record.caution,
+    record.relation,
+    record.audience,
+    record.risk,
+    record.caseJourney,
+    record.interaction,
+    record.interventions,
+    record.supporters,
+    record.outcomes,
+    record.followUp,
+    record.lessons,
+    record.source
+  ].join(" ");
 }
 
 function recordsForModule() {
@@ -259,6 +316,21 @@ function answerQuestion(question) {
   const concepts = sources.map((record) => `<li><strong>${escapeHtml(record.name)}</strong>：${escapeHtml(record.intro || record.mechanism || "待補核心概念")}</li>`).join("");
   const actions = sources.map((record) => record.sop || record.script).filter(Boolean).slice(0, 3).map((text) => `<li>${escapeHtml(text)}</li>`).join("");
   const cautions = sources.map((record) => record.caution).filter(Boolean).slice(0, 3).map((text) => `<li>${escapeHtml(text)}</li>`).join("");
+  const caseDetails = sources
+    .filter((record) => record.caseJourney || record.interaction || record.interventions || record.supporters || record.outcomes || record.lessons)
+    .map((record) => `
+      <li>
+        <strong>${escapeHtml(record.name)}</strong>
+        <ul>
+          ${record.caseJourney ? `<li>歷程：${escapeHtml(record.caseJourney)}</li>` : ""}
+          ${record.interaction ? `<li>互動：${escapeHtml(record.interaction)}</li>` : ""}
+          ${record.interventions ? `<li>方法：${escapeHtml(record.interventions)}</li>` : ""}
+          ${record.supporters ? `<li>支持者：${escapeHtml(record.supporters)}</li>` : ""}
+          ${record.outcomes ? `<li>改善：${escapeHtml(record.outcomes)}</li>` : ""}
+          ${record.lessons ? `<li>學到的規範：${escapeHtml(record.lessons)}</li>` : ""}
+        </ul>
+      </li>
+    `).join("");
   const review = sources.map((record) => `<li><strong>${escapeHtml(record.name)}</strong>：證據等級 ${escapeHtml(record.evidence)}，核心符合度 ${escapeHtml(record.coreFit)}，可用場景 ${escapeHtml(record.useCases)}</li>`).join("");
   const citations = sources.map((record, index) => citationChip(record, index + 1)).join("");
 
@@ -270,6 +342,7 @@ function answerQuestion(question) {
     <ol>${concepts}</ol>
     <h3>可以怎麼做</h3>
     <ol>${actions || "<li>目前來源尚未整理成 SOP，建議先補「第一線應用」與「執行步驟」。</li>"}</ol>
+    ${caseDetails ? `<h3>個案歷程線索</h3><ol>${caseDetails}</ol>` : ""}
     <h3>注意邊界</h3>
     <ol>${cautions || "<li>資料不足時需標記待驗證，不可把內部觀察包裝成醫療結論。</li>"}</ol>
     <h3>入庫審核狀態</h3>
