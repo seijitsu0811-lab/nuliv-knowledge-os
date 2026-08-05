@@ -12,6 +12,22 @@ Every item must be checked against NuLiv's human-centered principle:
 Knowledge should help the team understand the person, build trust, support the
 medical path, and improve the closed-loop care process.
 
+## Ingestion Skill Architecture
+
+Knowledge enters the system through two different skills:
+
+- `一般知識 Skill`: for SOP, meeting notes, service knowledge, therapy knowledge, educational materials, marketing materials, and medical literature.
+- `個案知識 Skill`: for case intake, PLAUD transcripts, follow-up records, care journey updates, intervention records, and before/after observations.
+
+After ingestion, answers should be generated through the `喜悅核心推理層`.
+
+This means:
+
+- Search and discussion must be grounded in knowledge base sources.
+- The reasoning frame must follow NuLiv's human-centered principle.
+- Case records must support timeline updates.
+- AI may suggest updates, but human review is required before updating the case master record.
+
 ## Required Fields
 
 | Field | Purpose | Example |
