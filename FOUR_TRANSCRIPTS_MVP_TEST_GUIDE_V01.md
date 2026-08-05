@@ -85,3 +85,15 @@
 - 1 份待確認問題
 - 1 份可入庫索引
 
+## 使用的整理 Prompt
+
+明天整理四份逐字稿時，會優先使用：
+
+- `GENERAL_KNOWLEDGE_INGEST_PROMPT_V01.md`
+- `CASE_KNOWLEDGE_INGEST_PROMPT_V01.md`
+- `JOY_CORE_ANSWER_PROMPT_V01.md`
+
+若逐字稿同時包含一般知識與個案內容，會拆成兩條資料：
+
+- 一般知識條目
+- 個案時間軸紀錄
