@@ -36,7 +36,7 @@ medical path, and improve the closed-loop care process.
 | 改善結果 | Subjective and objective before/after outcome | 睡眠改善、體力提升、數據變化 |
 | 追蹤計畫 | Next follow-up loop | 兩週後回看 HRV、睡眠與主觀感受 |
 | 學習重點 | Reusable learning extracted from the case | 可沉澱為個管 SOP 或業務案例 |
-| 證據等級 | Evidence classification | 醫學文獻 / 內部案例 / 老闆觀點 / 待驗證 |
+| 證據等級 | Evidence classification | 醫學文獻 / 內部案例 / 核心團隊觀點 / 待驗證 |
 | 喜悅核心符合度 | Whether it matches NuLiv principles | 符合 / 需修正 / 不符合 |
 | 可用場景 | Where this can be used | 教育訓練、個管、業務、衛教 |
 | 最後整理來源 | Source or meeting/case origin | Notion / 會議紀錄 / 文獻 |
@@ -46,7 +46,7 @@ medical path, and improve the closed-loop care process.
 
 - `醫學文獻`: external medical paper, guideline, or accepted medical source.
 - `內部案例`: anonymized case, before/after observation, internal follow-up.
-- `老闆觀點`: founder/leadership principle or strategic judgment.
+- `核心團隊觀點`: clinic-approved principle or judgment from physicians, case managers, nurse practitioners, or internal team discussion.
 - `內部觀察`: staff observation that is useful but not yet validated.
 - `待驗證`: content should not be used as a final answer without review.
 
@@ -65,7 +65,7 @@ Allowed values:
 
 - `教育訓練`
 - `個管師`
-- `醫護`
+- `醫師/專科護理師`
 - `櫃台`
 - `業務`
 - `衛教`

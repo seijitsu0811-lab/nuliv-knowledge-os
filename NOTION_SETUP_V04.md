@@ -78,7 +78,7 @@ Use exactly these labels so the website can classify records correctly:
 
 - 醫學文獻
 - 內部案例
-- 老闆觀點
+- 核心團隊觀點
 - 內部觀察
 - 待驗證
 
@@ -93,7 +93,7 @@ Use exactly these labels so the website can classify records correctly:
 
 - 教育訓練
 - 個管師
-- 醫護
+- 醫師/專科護理師
 - 櫃台
 - 業務
 - 衛教

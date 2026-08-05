@@ -51,7 +51,7 @@ documents, transcripts, or rough notes into Notion AI.
 請整理真正的判斷邏輯、機制、原則或服務思維。不要只重複原文。
 
 【第一線應用】
-請寫成櫃台、個管師、醫護、業務或教育訓練可以怎麼用。
+請寫成櫃台、個管師、醫師、專科護理師、業務或教育訓練可以怎麼用。
 
 【SOP】
 如果內容涉及流程，請列步驟。若不適用，請寫「不適用」。
@@ -93,7 +93,7 @@ documents, transcripts, or rough notes into Notion AI.
 只能從以下選一個：
 - 醫學文獻
 - 內部案例
-- 老闆觀點
+- 核心團隊觀點
 - 內部觀察
 - 待驗證
 
@@ -112,7 +112,7 @@ documents, transcripts, or rough notes into Notion AI.
 可複選：
 - 教育訓練
 - 個管師
-- 醫護
+- 醫師/專科護理師
 - 櫃台
 - 業務
 - 衛教
@@ -122,7 +122,7 @@ documents, transcripts, or rough notes into Notion AI.
 - 待補
 
 【最後整理來源】
-請填來源，例如：老闆口述、會議紀錄、個案討論、內部文件、醫學文獻、待補。
+請填來源，例如：醫師討論、專科護理師紀錄、個管師紀錄、團隊會議、個案討論、內部文件、醫學文獻、待補。
 
 【固定 QA 建議】
 請根據這筆知識產出 3 到 5 題員工或 AI 可能會問的問題，並給出保守、可引用來源的回答。

@@ -58,7 +58,7 @@ window.NULIV_SYNC_RECORDS = [
     risk: "疑似中重度 OSA 不可只做生活建議，需轉醫療端評估。",
     evidence: "醫學文獻",
     coreFit: "符合",
-    useCases: "個管師、醫護、衛教、AI問答",
+    useCases: "個管師、醫師/專科護理師、衛教、AI問答",
     source: "睡眠相關知識整理報告.docx；鉑眾-睡眠及健康.pdf；心肺耦合技術pptx；睡眠分析報告要點.doc"
   },
   {
@@ -68,7 +68,7 @@ window.NULIV_SYNC_RECORDS = [
     category: "睡眠檢測",
     status: "完成",
     priority: "高：必學",
-    intro: "CPC 與 HRV 可把睡眠穩定度、自律神經與呼吸事件轉成可追蹤資料，協助個管與醫護判斷下一步。",
+    intro: "CPC 與 HRV 可把睡眠穩定度、自律神經與呼吸事件轉成可追蹤資料，協助個管師、醫師與專科護理師判斷下一步。",
     mechanism: "PSG 是睡眠診斷金標準；CPC 從可攜式心電訊號推導呼吸，分析心率與呼吸相干性，高頻耦合對應穩定睡眠，低頻耦合對應不穩定睡眠。HRV 可反映交感與副交感調節。",
     script: "檢測不是製造焦慮，而是把你模糊的睡不好，變成可以討論、追蹤、比較 before/after 的資料。",
     sop: "先用問卷與病史判斷是否需要檢測；檢測後看睡眠效率、AHI、深睡比例、覺醒、HRV、自律神經與呼吸事件；異常者轉醫師或睡眠專科。",
@@ -78,7 +78,7 @@ window.NULIV_SYNC_RECORDS = [
     risk: "需避免過度解讀單次檢測，應搭配病史、症狀與醫療端判斷。",
     evidence: "醫學文獻",
     coreFit: "符合",
-    useCases: "檢測服務、個管師、醫護、AI問答",
+    useCases: "檢測服務、個管師、醫師/專科護理師、AI問答",
     source: "睡眠相關知識整理報告.docx；深圳北大醫院睡眠障礙中心計畫書；心肺耦合技術及臨床應用pptx"
   },
   {
@@ -134,11 +134,11 @@ window.NULIV_SYNC_RECORDS = [
     sop: "初談時依主訴選用量表；分數異常者補問病史與家屬觀察；疑似 OSA 或嚴重失眠者轉醫師或安排檢測。",
     caution: "問卷是篩檢與追蹤工具，不是診斷工具。",
     relation: "CPC／HRV 睡眠檢測邏輯、睡眠障礙與 OSA 風險判斷",
-    audience: "櫃台初步分流、個管初談、醫護追蹤、睡眠方案前後測",
+    audience: "櫃台初步分流、個管初談、醫師/專科護理師追蹤、睡眠方案前後測",
     risk: "問卷異常不可直接下診斷，需搭配醫療評估。",
     evidence: "醫學文獻",
     coreFit: "符合",
-    useCases: "櫃台、個管師、醫護、AI問答",
+    useCases: "櫃台、個管師、醫師/專科護理師、AI問答",
     source: "睡眠相關知識整理報告.docx；PSQI、ESS、AIS、FOSQ、睡眠呼吸中止自評相關文件"
   },
   {

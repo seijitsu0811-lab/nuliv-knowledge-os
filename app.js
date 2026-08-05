@@ -59,7 +59,7 @@ const seedRecords = [
     sop: "新增個案資料時，至少填寫：個案背景、迫切需求、意願能力、支持系統、醫院端進度、喜悅端介入、互動方式、改善結果、下一步追蹤、可學習經驗。",
     caution: "個案資料必須匿名化；不能把單一案例直接當成醫療結論；未經審核前只能作為內部學習與假設生成。",
     relation: "喜悅核心理念、四端理解模型、檢測服務、療程服務、個管師教育訓練、業務案例。",
-    audience: "個管師、醫護、業務、教育訓練、老闆決策討論。",
+    audience: "個管師、醫師、專科護理師、團隊人員、教育訓練。",
     risk: "若缺少追蹤與 before/after，個案只會變成故事，無法變成可複用的知識。",
     evidence: "內部案例",
     coreFit: "符合",
@@ -75,9 +75,9 @@ const seedRecords = [
     sop: "每次整理新知識或個案，先回到人本核心、信任建立、四端理解與閉環服務。",
     caution: "不要只依病名或單一療法下結論，也不要把輔助支持說成主要治療。",
     relation: "四端理解、閉環服務、個案知識庫",
-    audience: "所有新進員工、個管師、主管、未來 AI 回答系統",
+    audience: "所有新進員工、個管師、團隊人員、未來 AI 回答系統",
     risk: "若沒有這條核心，知識庫會變成零散資料庫，甚至把療法推銷放在理解人之前。",
-    evidence: "老闆觀點",
+    evidence: "核心團隊觀點",
     coreFit: "符合",
     useCases: "教育訓練、個管師、業務、AI問答"
   }),
@@ -93,7 +93,7 @@ const seedRecords = [
     relation: "個案模板、閉環服務",
     audience: "個案管理、初談、會議紀錄整理",
     risk: "四端資料不足時，不可直接產生個案判斷或療程建議。",
-    evidence: "老闆觀點",
+    evidence: "核心團隊觀點",
     coreFit: "符合",
     useCases: "個案分析、個管師、教育訓練、AI問答"
   }),
@@ -107,9 +107,9 @@ const seedRecords = [
     sop: "建立關係、收集資料、加強檢查、建立計畫、遠距監測、執行、before/after、修正。",
     caution: "閉環若沒有紀錄與追蹤，就會退回個人經驗，無法成為知識庫資產。",
     relation: "個管系統、檢測服務、個案知識庫",
-    audience: "個管師、醫護、主管、服務設計",
+    audience: "個管師、醫師、專科護理師、團隊人員、服務設計",
     risk: "沒有紀錄與追蹤的服務不可直接作為成功案例或標準教材。",
-    evidence: "老闆觀點",
+    evidence: "核心團隊觀點",
     coreFit: "符合",
     useCases: "SOP、個管師、個案分析、教育訓練"
   }),
@@ -140,10 +140,10 @@ const seedRecords = [
     caution: "發燒、急性發炎、懷孕、高風險心血管狀態需先評估。",
     relation: "THZ、IMRS、慢性疲勞",
     audience: "循環恢復、放鬆支持、慢性疲勞與生活恢復需求者",
-    risk: "高風險心血管狀態、急性發炎或不適者需醫護評估。",
+    risk: "高風險心血管狀態、急性發炎或不適者需醫師或專科護理師評估。",
     evidence: "內部觀察",
     coreFit: "需修正",
-    useCases: "醫護、衛教、SOP、AI問答"
+    useCases: "醫師/專科護理師、衛教、SOP、AI問答"
   }),
   entry("therapy", {
     name: "癌症整合照護",
@@ -171,7 +171,7 @@ const seedRecords = [
     sop: "初談、需求判斷、方案整理、LINE 跟進、回診提醒、療程後追蹤。",
     caution: "不要越權做醫療判斷，也不要把療程說成保證。",
     relation: "需要與想要的差異、癌症整合照護、門診預約",
-    audience: "個管師、新人訓練、服務主管",
+    audience: "個管師、新人訓練、團隊人員",
     risk: "個管師可整理與追蹤脈絡，但醫療判斷需回到醫師與醫院端。",
     evidence: "內部案例",
     coreFit: "符合",
@@ -223,7 +223,7 @@ if (Array.isArray(window.NULIV_SYNC_RECORDS)) {
 }
 
 const queue = [
-  { title: "補齊喜悅核心理念正式版 v0.1", owner: "老闆觀點整理", due: "優先" },
+  { title: "補齊喜悅核心理念正式版 v0.1", owner: "核心團隊整理", due: "優先" },
   { title: "建立個案知識庫標準模板", owner: "個管師／會議紀錄", due: "優先" },
   { title: "確認 AI 對話層供應商與預算", owner: "系統架構", due: "下一步" }
 ];
