@@ -329,6 +329,146 @@ function scoreRecord(record, question) {
     (record.priority.includes("高") ? 1 : 0);
 }
 
+function detectQuestionIntent(question) {
+  const text = question.toLowerCase();
+  if (/補|缺|資料|欄位|下一步|追蹤|檢查|數據/.test(text)) return "missing-data";
+  if (/家屬|支持|陪伴|照顧|關係|信任/.test(text)) return "support";
+  if (/sop|教育|訓練|沉澱|教材|規範|流程/.test(text)) return "learning";
+  if (/方法|介入|怎麼做|方案|改善|處理/.test(text)) return "intervention";
+  return "general";
+}
+
+function listItems(items, fallback) {
+  const filtered = items.filter(Boolean);
+  return filtered.length ? filtered.map((item) => `<li>${escapeHtml(item)}</li>`).join("") : `<li>${escapeHtml(fallback)}</li>`;
+}
+
+function answerByIntent(intent, question, sources, isWeak) {
+  const primaryCase = sources.find((record) => record.module === "case" && record.id !== "case-journey-template") ||
+    sources.find((record) => record.module === "case") ||
+    sources[0];
+  const sourceIntro = sources.map((record) => `<li><strong>${escapeHtml(record.name)}</strong>：${escapeHtml(record.intro || record.mechanism || "待補摘要")}</li>`).join("");
+  const citations = sources.map((record, index) => citationChip(record, index + 1)).join("");
+  const weakNote = isWeak ? `<p class="answer-warning">目前已選來源中沒有明確命中「${escapeHtml(question)}」。以下先依已選來源做保守整理。</p>` : "";
+
+  if (intent === "missing-data") {
+    const missing = [
+      primaryCase.sop,
+      primaryCase.followUp,
+      "確認醫院端目前治療進度、下一次回診與檢查安排。",
+      "補齊病人最迫切想改善的目標，以及願意配合到什麼程度。",
+      "補齊家屬端或主要照顧者目前能提供的支持。"
+    ];
+    return `
+      ${weakNote}
+      <h3>這題是在問：下一步要補哪些資料</h3>
+      <p>此個案目前最需要補的不是更多結論，而是讓四端資料完整，才能判斷喜悅能怎麼輔助。</p>
+      <h3>優先補資料</h3>
+      <ol>${listItems(missing, "目前來源未列出明確待補欄位，請先回到個案模板補齊四端資訊。")}</ol>
+      <h3>為什麼要補</h3>
+      <ol>
+        <li>沒有醫院端治療進度，就無法判斷喜悅介入邊界。</li>
+        <li>沒有病人端優先目標，就容易變成療法清單，而不是個案計畫。</li>
+        <li>沒有家屬端資訊，就無法建立持續追蹤與生活支持。</li>
+      </ol>
+      <h3>來源線索</h3>
+      <ol>${sourceIntro}</ol>
+      <h3>來源</h3>
+      <div class="citation-row">${citations}</div>
+    `;
+  }
+
+  if (intent === "support") {
+    const support = [
+      primaryCase.supporters,
+      "先確認誰是主要照顧者、誰能陪同回診、誰能協助飲食與日常紀錄。",
+      "家屬端不要只被要求配合，而要先理解醫院端治療與喜悅端輔助支持的分工。",
+      "用可觀察的症狀、體力、睡眠、飲食與檢查數據，建立家屬可參與的追蹤任務。"
+    ];
+    return `
+      ${weakNote}
+      <h3>這題是在問：家屬端如何建立支持</h3>
+      <p>家屬支持的核心不是說服，而是讓家屬知道自己在閉環服務中扮演什麼角色。</p>
+      <h3>可以怎麼建立</h3>
+      <ol>${listItems(support, "目前來源缺少家屬端資訊，需補問主要照顧者與支持方式。")}</ol>
+      <h3>個管師可追問</h3>
+      <ol>
+        <li>目前誰最常陪同或協助個案？</li>
+        <li>家屬最擔心的是副作用、治療效果、生活照顧，還是費用與時間？</li>
+        <li>家屬每天能協助記錄哪些變化？</li>
+      </ol>
+      <h3>來源線索</h3>
+      <ol>${sourceIntro}</ol>
+      <h3>來源</h3>
+      <div class="citation-row">${citations}</div>
+    `;
+  }
+
+  if (intent === "learning") {
+    const learning = [
+      primaryCase.lessons,
+      "癌症標靶治療副作用初談 SOP。",
+      "營養品清單蒐集與風險盤點 SOP。",
+      "副作用、生活品質與 before/after 追蹤表。",
+      "主治療與輔助支持分工的教育訓練案例。"
+    ];
+    return `
+      ${weakNote}
+      <h3>這題是在問：這個個案能沉澱成什麼知識</h3>
+      <p>此個案的價值不只是單一案例，而是能整理成個管師可複用的初談、追蹤與教育訓練材料。</p>
+      <h3>可沉澱項目</h3>
+      <ol>${listItems(learning, "目前來源尚未列出可沉澱知識，需補個案歷程與介入結果。")}</ol>
+      <h3>還不能正式化的原因</h3>
+      <ol>
+        <li>目前尚無介入後 before/after。</li>
+        <li>關鍵醫療數據與家屬端資料仍不足。</li>
+        <li>需人工審核後才可作為正式教材或對外案例。</li>
+      </ol>
+      <h3>來源線索</h3>
+      <ol>${sourceIntro}</ol>
+      <h3>來源</h3>
+      <div class="citation-row">${citations}</div>
+    `;
+  }
+
+  if (intent === "intervention") {
+    const interventions = [
+      primaryCase.interventions,
+      primaryCase.script,
+      "先承認醫院端主治療為主軸，再從副作用、生活品質、營養與日常追蹤切入。",
+      "所有建議需回到可執行、可追蹤、可回驗。"
+    ];
+    return `
+      ${weakNote}
+      <h3>這題是在問：可以怎麼介入</h3>
+      <p>喜悅端不取代主治療，而是協助個案把治療期間的身體狀態與生活品質照顧得更完整。</p>
+      <h3>可行方向</h3>
+      <ol>${listItems(interventions, "目前來源未列出明確介入方式，需先補檢測、目標與追蹤資料。")}</ol>
+      <h3>注意邊界</h3>
+      <ol>${listItems(sources.map((record) => record.caution), "不可把輔助支持說成主要治療或保證療效。")}</ol>
+      <h3>來源線索</h3>
+      <ol>${sourceIntro}</ol>
+      <h3>來源</h3>
+      <div class="citation-row">${citations}</div>
+    `;
+  }
+
+  return `
+    ${weakNote}
+    <h3>依喜悅人本邏輯的初步回答</h3>
+    <p>這題需要先看個案最迫切想改善什麼、醫院端治療進度、家屬端支持，以及喜悅端能提供哪些輔助支持。</p>
+    <h3>來源線索</h3>
+    <ol>${sourceIntro}</ol>
+    <h3>建議下一步</h3>
+    <ol>
+      <li>先確認問題是在問補資料、支持系統、介入方法，還是教育訓練。</li>
+      <li>再依個案模板補齊缺口，避免只做摘要。</li>
+    </ol>
+    <h3>來源</h3>
+    <div class="citation-row">${citations}</div>
+  `;
+}
+
 function answerQuestion(question) {
   const pool = selectedRecords();
   const ranked = pool
@@ -337,44 +477,7 @@ function answerQuestion(question) {
   const chosen = ranked.filter((item) => item.score > 0).slice(0, 4).map((item) => item.record);
   const sources = chosen.length ? chosen : pool.slice(0, 4);
   const isWeak = !ranked.some((item) => item.score > 0);
-
-  const concepts = sources.map((record) => `<li><strong>${escapeHtml(record.name)}</strong>：${escapeHtml(record.intro || record.mechanism || "待補核心概念")}</li>`).join("");
-  const actions = sources.map((record) => record.sop || record.script).filter(Boolean).slice(0, 3).map((text) => `<li>${escapeHtml(text)}</li>`).join("");
-  const cautions = sources.map((record) => record.caution).filter(Boolean).slice(0, 3).map((text) => `<li>${escapeHtml(text)}</li>`).join("");
-  const caseDetails = sources
-    .filter((record) => record.caseJourney || record.interaction || record.interventions || record.supporters || record.outcomes || record.lessons)
-    .map((record) => `
-      <li>
-        <strong>${escapeHtml(record.name)}</strong>
-        <ul>
-          ${record.caseJourney ? `<li>歷程：${escapeHtml(record.caseJourney)}</li>` : ""}
-          ${record.interaction ? `<li>互動：${escapeHtml(record.interaction)}</li>` : ""}
-          ${record.interventions ? `<li>方法：${escapeHtml(record.interventions)}</li>` : ""}
-          ${record.supporters ? `<li>支持者：${escapeHtml(record.supporters)}</li>` : ""}
-          ${record.outcomes ? `<li>改善：${escapeHtml(record.outcomes)}</li>` : ""}
-          ${record.lessons ? `<li>學到的規範：${escapeHtml(record.lessons)}</li>` : ""}
-        </ul>
-      </li>
-    `).join("");
-  const review = sources.map((record) => `<li><strong>${escapeHtml(record.name)}</strong>：證據等級 ${escapeHtml(record.evidence)}，核心符合度 ${escapeHtml(record.coreFit)}，可用場景 ${escapeHtml(record.useCases)}</li>`).join("");
-  const citations = sources.map((record, index) => citationChip(record, index + 1)).join("");
-
-  return `
-    ${isWeak ? `<p class="answer-warning">目前已選來源中沒有明確命中「${escapeHtml(question)}」。以下先用已選知識做保守整理，並建議補資料。</p>` : ""}
-    <h3>依喜悅人本邏輯的初步回答</h3>
-    <p>這個問題應先回到「人」：個案最迫切想處理什麼、是否有意願與能力、誰支持他、醫院端目前治療方向為何，以及喜悅能在閉環服務中提供哪些輔助支持。</p>
-    <h3>可用的知識線索</h3>
-    <ol>${concepts}</ol>
-    <h3>可以怎麼做</h3>
-    <ol>${actions || "<li>目前來源尚未整理成 SOP，建議先補「第一線應用」與「執行步驟」。</li>"}</ol>
-    ${caseDetails ? `<h3>個案歷程線索</h3><ol>${caseDetails}</ol>` : ""}
-    <h3>注意邊界</h3>
-    <ol>${cautions || "<li>資料不足時需標記待驗證，不可把內部觀察包裝成醫療結論。</li>"}</ol>
-    <h3>入庫審核狀態</h3>
-    <ol>${review}</ol>
-    <h3>來源</h3>
-    <div class="citation-row">${citations}</div>
-  `;
+  return answerByIntent(detectQuestionIntent(question), question, sources, isWeak);
 }
 
 function citationChip(record, index) {
