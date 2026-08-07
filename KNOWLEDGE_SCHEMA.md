@@ -1,120 +1,140 @@
-# NuLiv Knowledge OS v0.3 Knowledge Schema
+# 喜悅人本知識庫 Knowledge Schema v0.4
 
-This schema defines how every knowledge item should be stored before it is used
-for training, internal answers, client communication, or future AI/RAG retrieval.
+這份文件定義：任何資料進入知識庫前，必須被整理成什麼格式，才可以被搜尋、問答、教育訓練、個案分析、SOP 生成與未來 AI/RAG 使用。
 
-## Core Principle
+## 1. 核心原則
 
-Every item must be checked against NuLiv's human-centered principle:
+所有知識都必須先通過喜悅人本原則：
 
 > 喜悅真正關注的是人，而非只是病理。
 
-Knowledge should help the team understand the person, build trust, support the
-medical path, and improve the closed-loop care process.
+因此知識庫不是療法資料庫，也不是文件倉庫，而是一套幫助團隊理解「人、病、關係、支持、方法、結果」的系統。
 
-## Ingestion Skill Architecture
+任何回答都要遵守：
 
-Knowledge enters the system through two different skills:
+1. 先理解人，再理解病名。
+2. 先確認意願、急迫性、支持系統與醫院端進度，再談方法。
+3. 喜悅以輔助支持為主，不取代醫院端主要治療。
+4. 所有建議必須可追蹤、可回驗、可修正。
+5. 未經審核的內容只能作為內部討論假設，不能作為正式醫療結論或對外宣稱。
 
-- `一般知識 Skill`: for SOP, meeting notes, service knowledge, therapy knowledge, educational materials, marketing materials, and medical literature.
-- `個案知識 Skill`: for case intake, PLAUD transcripts, follow-up records, care journey updates, intervention records, and before/after observations.
+## 2. 知識分流
 
-After ingestion, answers should be generated through the `喜悅核心推理層`.
+知識進入系統時，先分成兩種：
 
-This means:
+### A. 一般知識
 
-- Search and discussion must be grounded in knowledge base sources.
-- The reasoning frame must follow NuLiv's human-centered principle.
-- Case records must support timeline updates.
-- AI may suggest updates, but human review is required before updating the case master record.
+適用於：
 
-## Required Fields
+- 喜悅核心理念
+- 療程服務
+- 儀器設備
+- 檢測服務
+- 營養、睡眠、壓力、身心支持
+- 會議結論
+- SOP
+- 教育訓練
+- 業務與衛教素材
+- 外部醫學文獻
 
-| Field | Purpose | Example |
-| --- | --- | --- |
-| 名稱 | Short, searchable knowledge title | 熱療艙 |
-| 主分類 | Main knowledge domain | 核心儀器與設備 |
-| 子分類 | More specific category | 恢復設備 |
-| 內容狀態 | Draft/review/approved state | 完成 |
-| 學習優先順序 | Training priority | 高：必學 |
-| 一句話介紹 | One-sentence purpose | 透過可控溫熱促進循環與肌肉放鬆。 |
-| 核心概念 | Mechanism or reasoning | 溫熱刺激提高局部組織溫度... |
-| 第一線應用 | Staff-facing usage | 熱療不是單純流汗... |
-| SOP | Practical steps | 確認禁忌、量測狀態... |
-| 注意事項 | Safety and overclaim boundaries | 發燒、急性發炎... |
-| 關聯知識 | Related knowledge | THZ、IMRS、慢性疲勞 |
-| 適用對象 | Who this helps | 睡眠差、慢性疲勞、循環恢復需求 |
-| 不適用/風險 | Who should not use it or needs review | 高風險心血管狀態需先評估 |
-| 個案歷程 | Case timeline from first contact to follow-up | 初談、檢測、介入、追蹤、再檢測 |
-| 互動方式 | How the team built trust and interacted | 先確認迫切需求與意願，再建立夥伴關係 |
-| 使用方法/介入方法 | What NuLiv did for the case | 睡眠支持、營養調整、熱療、遠距追蹤 |
-| 支持系統 | Who supported the case | 病人、家屬、醫院端、喜悅個管師 |
-| 改善結果 | Subjective and objective before/after outcome | 睡眠改善、體力提升、數據變化 |
-| 追蹤計畫 | Next follow-up loop | 兩週後回看 HRV、睡眠與主觀感受 |
-| 學習重點 | Reusable learning extracted from the case | 可沉澱為個管 SOP 或業務案例 |
-| 證據等級 | Evidence classification | 醫學文獻 / 內部案例 / 核心團隊觀點 / 待驗證 |
-| 喜悅核心符合度 | Whether it matches NuLiv principles | 符合 / 需修正 / 不符合 |
-| 可用場景 | Where this can be used | 教育訓練、個管、業務、衛教 |
-| 最後整理來源 | Source or meeting/case origin | Notion / 會議紀錄 / 文獻 |
-| 最後更新 | Update timestamp | 2026-08-04 |
+### B. 個案知識
 
-## Evidence Levels
+適用於：
 
-- `醫學文獻`: external medical paper, guideline, or accepted medical source.
-- `內部案例`: anonymized case, before/after observation, internal follow-up.
-- `核心團隊觀點`: clinic-approved principle or judgment from physicians, case managers, nurse practitioners, or internal team discussion.
-- `內部觀察`: staff observation that is useful but not yet validated.
-- `待驗證`: content should not be used as a final answer without review.
+- PLAUD 逐字稿
+- 初談紀錄
+- 回診追蹤
+- 服務紀錄
+- before/after
+- 家屬與支持系統紀錄
+- 個案可沉澱的 SOP、教材與 QA
 
-## Core Fit Rules
+個案知識不是單純摘要，必須保留時間軸與每次新增紀錄。
 
-Use these labels:
+## 3. 一般知識必填欄位
 
-- `符合`: clearly supports human-centered, trust-based, closed-loop care.
-- `需修正`: potentially useful, but wording or use case may overclaim.
-- `不符合`: conflicts with medical boundaries, trust, or NuLiv positioning.
-- `未判定`: imported data has not been reviewed yet.
+| 欄位 | 說明 |
+| --- | --- |
+| 名稱 | 短而可搜尋的標題 |
+| 主分類 | 例如：核心理念、檢測服務、療程服務、儀器設備、人才培育 |
+| 子分類 | 更細的分類，例如：睡眠支持、熱療、音療、癌症整合照護 |
+| 一句話介紹 | 這個知識是什麼 |
+| 適用對象 | 適合誰 |
+| 解決問題 | 可協助處理什麼需求或情境 |
+| 背後機制 | 為什麼可能有幫助 |
+| 喜悅用法 | 喜悅團隊在服務中如何使用 |
+| SOP | 實際步驟 |
+| 注意邊界 | 不能怎麼說、不能怎麼用 |
+| 相關知識 | 可和哪些知識交叉分析 |
+| 證據等級 | 外部醫學文獻、內部案例、核心團隊觀點、待驗證 |
+| 喜悅核心符合度 | 符合、需修正、不符合、未審核 |
+| 可用場景 | AI問答、教育訓練、個案分析、SOP、業務、衛教 |
+| 來源 | 檔名、會議、Notion、文獻、逐字稿 |
+| 審核狀態 | 草稿、待審核、已審核、不可使用 |
 
-## Use Scenario Labels
+## 4. 個案知識必填欄位
 
-Allowed values:
+| 欄位 | 說明 |
+| --- | --- |
+| 個案代碼 | 去識別化代碼，例如 CASE-20260806-A |
+| 資料日期 | 該次紀錄日期 |
+| 資料來源 | PLAUD、門診、會議、追蹤表、檢查報告 |
+| 個案背景 | 年齡區間、主要狀況、目前醫院端進度 |
+| 最迫切需求 | 個案當下最想處理什麼 |
+| 意願與能力 | 願意做到什麼程度、可配合資源 |
+| 醫院端 | 診斷、治療方向、下一步 |
+| 喜悅端 | 喜悅可提供的輔助支持 |
+| 病人端 | 自己的感受、生活狀態、困擾 |
+| 家屬端 | 誰支持、誰決策、誰照顧 |
+| 互動方式 | 如何建立信任、如何溝通 |
+| 使用方法 | 檢測、營養、療程、睡眠、壓力、遠距追蹤 |
+| 改善結果 | 主觀感受與客觀數據 |
+| 未改善處 | 無效、反覆或風險 |
+| 下一步追蹤 | 下次要補什麼資料或做什麼 |
+| 可沉澱知識 | 可變成 SOP、教材、QA、業務案例的內容 |
+| 審核狀態 | 草稿、待審核、已審核、不可使用 |
 
-- `教育訓練`
-- `個管師`
-- `醫師/專科護理師`
-- `櫃台`
-- `業務`
-- `衛教`
-- `個案分析`
-- `SOP`
-- `AI問答`
-- `待補`
+## 5. 證據等級
 
-## AI Readiness
+- 外部醫學文獻：指南、研究、醫學資料庫、正式出版資料。
+- 內部案例：去識別化個案、before/after、追蹤紀錄。
+- 核心團隊觀點：由醫師、個管師、專科護理師、團隊人員討論形成的內部原則。
+- 內部觀察：有價值但尚未驗證的第一線觀察。
+- 待驗證：可搜尋，但不能作為正式答案。
 
-An item is AI-ready only when:
+## 6. AI 回答規則
 
-1. It has a clear source.
-2. Its evidence level is not empty.
-3. Its core fit is `符合` or explicitly marked `需修正`.
-4. It includes safety boundaries.
-5. It can be traced back to a source, case, meeting, or approved principle.
+AI 回答時必須依序做：
 
-Items marked `待驗證`, `不符合`, or missing source should be searchable but
-must not be used as a final authoritative answer.
+1. 判斷問題類型：補資料、家屬支持、介入方法、SOP/教育訓練、跨知識整合。
+2. 找出相關來源。
+3. 用喜悅人本核心重組答案。
+4. 明確標示可做、不可做、還缺什麼。
+5. 引用來源。
+6. 若資料不足，要說「資料不足」，不能硬下結論。
 
-## Case Journey Fields
+## 7. 跨知識整合規則
 
-Case records are first-class knowledge assets. They should not be stored as
-plain meeting summaries only. A useful case record should preserve:
+當問題涉及多種知識，例如「糖尿病如何從熱療、音療、睡眠、營養分析」，回答不能只是把資料拼在一起。
 
-- `個案歷程`: what happened from first contact to follow-up.
-- `互動方式`: how NuLiv built trust and clarified the person's real need.
-- `使用方法/介入方法`: what was actually done.
-- `支持系統`: who supported the person, including family, hospital, and NuLiv.
-- `改善結果`: what changed, including both subjective feelings and objective data.
-- `追蹤計畫`: what should be checked next.
-- `學習重點`: what can become training material, SOP, marketing proof, or future AI reasoning material.
+正確順序是：
 
-Case records must be anonymized before being used for internal training,
-AI retrieval, or external communication.
+1. 先理解個案：需求、意願、支持系統、醫院端進度。
+2. 建立 baseline：症狀、睡眠、體力、飲食、情緒、檢查數據。
+3. 選擇可測試方法：一次不要放太多方法。
+4. 設定 before/after：主觀感受與客觀數據都要追蹤。
+5. 回到知識庫更新：有效、無效、風險與可沉澱規範。
+
+## 8. AI-ready 條件
+
+一筆知識可以被 AI 正式使用前，必須符合：
+
+1. 有清楚來源。
+2. 有證據等級。
+3. 有注意邊界。
+4. 有適用對象。
+5. 有喜悅用法。
+6. 喜悅核心符合度不是「不符合」。
+7. 個案資料已去識別化。
+
+未達條件者仍可搜尋，但答案中必須標示為「待審核」或「資料不足」。

@@ -172,6 +172,22 @@ const seedRecords = [
     useCases: "醫師/專科護理師、衛教、SOP、AI問答"
   }),
   entry("therapy", {
+    name: "音療與放鬆支持",
+    category: "身心支持",
+    priority: "中：可測試",
+    intro: "以聲音、節奏與放鬆引導協助個案降低緊繃感，作為睡眠、情緒與壓力恢復的輔助支持。",
+    mechanism: "聲音刺激與呼吸節奏可協助個案進入較放鬆的身心狀態，但效果需要依個案主觀感受、睡眠品質與壓力指標追蹤。",
+    script: "音療不是治療疾病，而是幫助身體和情緒先安定下來，讓後續營養、睡眠與生活調整更容易被執行。",
+    sop: "先確認個案對聲音是否敏感，再設定短時間體驗；體驗前後記錄緊繃感、睡眠、情緒、呼吸與身體感受。",
+    caution: "不可宣稱音療可治療糖尿病、癌症或其他疾病；若個案對聲音敏感、焦慮加劇或不適，需停止並改用其他放鬆方式。",
+    relation: "睡眠支持、HRV 身心聯動監測、個案歷程、壓力恢復",
+    audience: "壓力高、睡眠差、治療期間焦慮、需要建立放鬆習慣的個案",
+    risk: "缺少 before/after 與個案回饋時，只能作為身心支持假設，不能成為正式療效結論。",
+    evidence: "內部觀察",
+    coreFit: "需修正",
+    useCases: "個案分析、教育訓練、AI問答、療程前後支持"
+  }),
+  entry("therapy", {
     name: "癌症整合照護",
     category: "整合照護",
     priority: "高：必學",
@@ -331,6 +347,7 @@ function scoreRecord(record, question) {
 
 function detectQuestionIntent(question) {
   const text = question.toLowerCase();
+  if (/整合|交叉|分析|關聯|糖尿病|癌症|代謝|如何從|一起看|合併/.test(text)) return "integration";
   if (/補|缺|資料|欄位|下一步|追蹤|檢查|數據/.test(text)) return "missing-data";
   if (/家屬|支持|陪伴|照顧|關係|信任/.test(text)) return "support";
   if (/sop|教育|訓練|沉澱|教材|規範|流程/.test(text)) return "learning";
@@ -350,6 +367,43 @@ function answerByIntent(intent, question, sources, isWeak) {
   const sourceIntro = sources.map((record) => `<li><strong>${escapeHtml(record.name)}</strong>：${escapeHtml(record.intro || record.mechanism || "待補摘要")}</li>`).join("");
   const citations = sources.map((record, index) => citationChip(record, index + 1)).join("");
   const weakNote = isWeak ? `<p class="answer-warning">目前已選來源中沒有明確命中「${escapeHtml(question)}」。以下先依已選來源做保守整理。</p>` : "";
+
+  if (intent === "integration") {
+    const knowledgeMap = sources.map((record) => {
+      const usable = record.script || record.sop || record.interventions || record.mechanism || record.intro;
+      const boundary = record.caution || record.risk || "尚未標示風險邊界，正式使用前需人工審核。";
+      return `<li><strong>${escapeHtml(record.name)}</strong>：${escapeHtml(usable || "待補可應用內容")}<br><span>邊界：${escapeHtml(boundary)}</span></li>`;
+    }).join("");
+    return `
+      ${weakNote}
+      <h3>這題是在問：跨知識整合分析</h3>
+      <p>回答這類問題時，不能先推療法；要先回到個案這個人，再把不同知識放進同一個閉環服務中判斷。</p>
+      <h3>喜悅判斷順序</h3>
+      <ol>
+        <li>先確認個案最迫切想改善什麼，以及是否有意願與能力配合。</li>
+        <li>再確認醫院端目前診斷、治療方向、檢查數據與下一步。</li>
+        <li>接著看家屬端與生活環境是否能支持日常改變。</li>
+        <li>最後才把熱療、音療、睡眠、營養、檢測或其他方法放入可追蹤計畫。</li>
+      </ol>
+      <h3>目前知識可怎麼整合</h3>
+      <ol>${knowledgeMap}</ol>
+      <h3>可形成的個案計畫草案</h3>
+      <ol>
+        <li>建立 baseline：症狀、睡眠、體力、情緒、飲食、檢查數據與目前治療。</li>
+        <li>選 1 到 2 個最有機會讓個案有感的支持方法，先小範圍測試。</li>
+        <li>設定 before/after 指標，追蹤主觀感受與客觀數據。</li>
+        <li>每次回診或服務後更新個案紀錄，讓單一個案逐步沉澱成 SOP、教材與 QA。</li>
+      </ol>
+      <h3>不能直接下結論</h3>
+      <ol>
+        <li>不能說某療法可以治療疾病或取代醫院端治療。</li>
+        <li>資料不足時，只能提出假設與待補資料，不能當正式建議。</li>
+        <li>跨知識整合必須留下來源，並標示證據等級與審核狀態。</li>
+      </ol>
+      <h3>來源</h3>
+      <div class="citation-row">${citations}</div>
+    `;
+  }
 
   if (intent === "missing-data") {
     const missing = [
