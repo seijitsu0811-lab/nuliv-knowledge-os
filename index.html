@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./styles.css?v=20260807-native-scroll" />
+  <link rel="stylesheet" href="./styles.css?v=20260807-simple-ui" />
 </head>
 <body>
   <div class="notebook-shell">
@@ -45,15 +45,8 @@
     <main class="conversation-panel" id="centerPanel">
       <header class="notebook-header">
         <div>
-          <p class="eyebrow">NuLiv Human-Centered Knowledge System</p>
           <h1>喜悅人本知識庫</h1>
-          <p>
-            先選來源，再提問。系統會依目前知識庫整理回答、標示邊界並列出來源。
-          </p>
-        </div>
-        <div class="version-card">
-          <strong>v0.5</strong>
-          <span>睡眠資料已入庫示範。正式 AI/RAG 尚未接入。</span>
+          <p>選左側知識，直接在下方提問。</p>
         </div>
       </header>
 
@@ -66,7 +59,6 @@
         <div class="workflow-actions">
           <button type="button" data-jump="chatSection">先問問題</button>
           <button type="button" data-jump="librarySection">看知識條目</button>
-          <button type="button" data-jump="weeklyBrief">看本週重點</button>
         </div>
       </section>
 
@@ -232,7 +224,7 @@
   </div>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="./sync-data.js?v=20260807-native-scroll"></script>
-  <script src="./app.js?v=20260807-native-scroll"></script>
+  <script src="./sync-data.js?v=20260807-simple-ui"></script>
+  <script src="./app.js?v=20260807-simple-ui"></script>
 </body>
 </html>

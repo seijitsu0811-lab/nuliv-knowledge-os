@@ -53,8 +53,9 @@ h3 {
 
 .notebook-shell {
   display: grid;
-  grid-template-columns: 300px minmax(560px, 1fr) 300px;
-  gap: 12px;
+  grid-template-columns: 300px minmax(0, 820px);
+  gap: 14px;
+  justify-content: center;
   min-height: 100vh;
   padding: 12px;
 }
@@ -77,6 +78,10 @@ h3 {
   overscroll-behavior: contain;
 }
 
+.workspace-panel {
+  display: none;
+}
+
 .brand,
 .panel-card,
 .workspace-card,
@@ -96,6 +101,7 @@ h3 {
 }
 
 .weekly-brief-card {
+  display: none;
   padding: 20px;
 }
 
@@ -358,15 +364,12 @@ h3 {
 .conversation-panel {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
   min-height: calc(100vh - 24px);
 }
 
 .notebook-header {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 180px;
-  gap: 16px;
-  padding: 20px;
+  padding: 18px 20px;
 }
 
 .eyebrow {
@@ -379,8 +382,8 @@ h3 {
 }
 
 h1 {
-  margin-bottom: 8px;
-  font-size: clamp(30px, 3.3vw, 42px);
+  margin-bottom: 6px;
+  font-size: clamp(28px, 3vw, 38px);
   line-height: 1.12;
 }
 
@@ -401,6 +404,7 @@ h3 {
 }
 
 .version-card {
+  display: none;
   align-self: start;
   padding: 12px;
   background: var(--gold-soft);
@@ -425,13 +429,13 @@ h3 {
 
 .workflow-card {
   position: sticky;
-  top: 0;
+  top: 8px;
   z-index: 5;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 12px;
   align-items: center;
-  padding: 12px 14px;
+  padding: 10px 12px;
   background: rgba(255, 255, 255, 0.96);
   border: 1px solid var(--line);
   border-radius: 18px;
@@ -521,7 +525,7 @@ h3 {
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
   flex: 0 0 auto;
-  min-height: 430px;
+  min-height: 480px;
   overflow: hidden;
 }
 
@@ -1025,14 +1029,6 @@ h3 {
 
   .weekly-grid {
     grid-template-columns: 1fr;
-  }
-
-  .workspace-panel {
-    grid-column: 1 / -1;
-    position: static;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    height: auto;
   }
 }
 
