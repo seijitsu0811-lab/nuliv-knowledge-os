@@ -402,6 +402,24 @@ function showToast(text) {
   window.setTimeout(() => toast.classList.remove("is-visible"), 2000);
 }
 
+function scrollCenterTo(id) {
+  const panel = $("#centerPanel");
+  const target = $(`#${id}`);
+  if (!panel || !target) return;
+  const panelBox = panel.getBoundingClientRect();
+  const targetBox = target.getBoundingClientRect();
+  panel.scrollTo({
+    top: panel.scrollTop + targetBox.top - panelBox.top - 12,
+    behavior: "smooth"
+  });
+}
+
+function renderCurrentContext() {
+  const selectedInModule = recordsForModule().filter((record) => state.selectedSources.has(record.id)).length;
+  $("#currentContextLabel").textContent = moduleTitle();
+  $("#currentSourceCount").textContent = `已選 ${selectedInModule} 個來源`;
+}
+
 function renderNav() {
   $("#moduleNav").innerHTML = modules.map((module) => {
     const count = records.filter((record) => record.module === module.key).length;
@@ -419,8 +437,7 @@ function renderNav() {
       state.globalQuery = "";
       $("#globalSearch").value = "";
       render();
-      $("#librarySection")?.scrollIntoView({ behavior: "smooth", block: "start" });
-      showToast(`已切換到「${moduleTitle()}」`);
+      showToast(`已切換到「${moduleTitle()}」，可直接提問或查看知識條目`);
     });
   });
 }
@@ -441,6 +458,7 @@ function renderSources() {
     checkbox.addEventListener("change", () => {
       if (checkbox.checked) state.selectedSources.add(checkbox.dataset.source);
       else state.selectedSources.delete(checkbox.dataset.source);
+      renderCurrentContext();
       renderSources();
       renderRecordGrid();
       renderChat();
@@ -572,11 +590,17 @@ function renderSyncStatus() {
 }
 
 function bindEvents() {
+  document.querySelectorAll("[data-jump]").forEach((button) => {
+    button.addEventListener("click", () => {
+      scrollCenterTo(button.dataset.jump);
+    });
+  });
   $("#addKnowledgeBtn").addEventListener("click", () => {
     window.open(NOTION_DATABASE_URL, "_blank", "noopener,noreferrer");
   });
   $("#selectAllSourcesBtn").addEventListener("click", () => {
     recordsForModule().forEach((record) => state.selectedSources.add(record.id));
+    renderCurrentContext();
     renderSources();
     renderChat();
   });
@@ -611,6 +635,7 @@ function bindEvents() {
 
 function render() {
   renderSyncStatus();
+  renderCurrentContext();
   renderNav();
   renderSources();
   renderRecordGrid();

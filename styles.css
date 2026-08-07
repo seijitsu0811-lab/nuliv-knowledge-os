@@ -55,7 +55,7 @@ h3 {
   display: grid;
   grid-template-columns: 300px minmax(560px, 1fr) 300px;
   gap: 12px;
-  min-height: 100vh;
+  height: 100vh;
   padding: 12px;
 }
 
@@ -358,7 +358,9 @@ h3 {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  min-height: calc(100vh - 24px);
+  height: calc(100vh - 24px);
+  overflow: auto;
+  scroll-behavior: smooth;
 }
 
 .notebook-header {
@@ -422,6 +424,59 @@ h3 {
   line-height: 1.65;
 }
 
+.workflow-card {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+}
+
+.workflow-card span,
+.workflow-card small {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.workflow-card strong {
+  display: block;
+  margin: 3px 0;
+  color: var(--ink);
+  font-size: 17px;
+}
+
+.workflow-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.workflow-actions button {
+  min-height: 36px;
+  padding: 0 12px;
+  color: var(--brand-dark);
+  background: var(--green-soft);
+  border: 1px solid #bfd9c8;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.workflow-actions button:hover {
+  background: #dfeee6;
+  border-color: #9fc2ad;
+}
+
 .principle-strip {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -466,8 +521,8 @@ h3 {
 .chat-card {
   display: grid;
   grid-template-rows: minmax(0, 1fr) auto;
-  flex: 1;
-  min-height: 0;
+  flex: 0 0 auto;
+  min-height: 430px;
   overflow: hidden;
 }
 
@@ -989,6 +1044,8 @@ h3 {
 
   .notebook-shell {
     display: block;
+    height: auto;
+    min-height: 100vh;
     padding: 10px;
   }
 
@@ -999,6 +1056,7 @@ h3 {
     width: 100%;
     max-width: 100%;
     height: auto;
+    overflow: visible;
     margin-bottom: 12px;
   }
 
@@ -1013,6 +1071,7 @@ h3 {
   }
 
   .notebook-header,
+  .workflow-card,
   .principle-strip,
   .section-heading,
   .record-grid,
@@ -1023,6 +1082,11 @@ h3 {
 
   .chat-card {
     grid-template-rows: minmax(360px, 60vh) auto;
+    min-height: 460px;
+  }
+
+  .workflow-actions {
+    justify-content: flex-start;
   }
 
   .message > div {

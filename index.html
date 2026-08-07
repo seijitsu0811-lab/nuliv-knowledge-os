@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./styles.css?v=20260807-case-journey" />
+  <link rel="stylesheet" href="./styles.css?v=20260807-ux-flow" />
 </head>
 <body>
   <div class="notebook-shell">
@@ -42,7 +42,7 @@
       </section>
     </aside>
 
-    <main class="conversation-panel">
+    <main class="conversation-panel" id="centerPanel">
       <header class="notebook-header">
         <div>
           <p class="eyebrow">NuLiv Human-Centered Knowledge System</p>
@@ -56,6 +56,19 @@
           <span>睡眠資料已入庫示範。正式 AI/RAG 尚未接入。</span>
         </div>
       </header>
+
+      <section class="workflow-card">
+        <div>
+          <span>目前分類</span>
+          <strong id="currentContextLabel">喜悅核心理念</strong>
+          <small id="currentSourceCount">已選 0 個來源</small>
+        </div>
+        <div class="workflow-actions">
+          <button type="button" data-jump="chatSection">先問問題</button>
+          <button type="button" data-jump="librarySection">看知識條目</button>
+          <button type="button" data-jump="weeklyBrief">看本週重點</button>
+        </div>
+      </section>
 
       <section class="principle-strip compact-hidden">
         <article>
@@ -75,7 +88,26 @@
         </article>
       </section>
 
-      <section class="weekly-brief-card">
+      <section class="chat-card" id="chatSection">
+        <div id="chatMessages" class="chat-messages"></div>
+        <form id="askForm" class="ask-box">
+          <textarea id="askInput" rows="1" placeholder="根據已選來源提問，例如：糖尿病如何從熱療與音療分析？"></textarea>
+          <button type="submit" aria-label="送出問題">➜</button>
+        </form>
+      </section>
+
+      <section class="library-section" id="librarySection">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Selected Knowledge</p>
+            <h2 id="moduleTitle">目前分類</h2>
+          </div>
+          <input id="globalSearch" type="search" placeholder="搜尋所有知識條目" />
+        </div>
+        <div id="recordGrid" class="record-grid"></div>
+      </section>
+
+      <section class="weekly-brief-card" id="weeklyBrief">
         <div class="section-heading">
           <div>
             <p class="eyebrow">Weekly Staff Brief</p>
@@ -100,25 +132,6 @@
             <p>AI 要先有框架再使用；DM 先做出能讓客戶理解喜悅差異的版本。</p>
           </article>
         </div>
-      </section>
-
-      <section class="chat-card" id="chatSection">
-        <div id="chatMessages" class="chat-messages"></div>
-        <form id="askForm" class="ask-box">
-          <textarea id="askInput" rows="1" placeholder="根據已選來源提問，例如：糖尿病如何從熱療與音療分析？"></textarea>
-          <button type="submit" aria-label="送出問題">➜</button>
-        </form>
-      </section>
-
-      <section class="library-section" id="librarySection">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Selected Knowledge</p>
-            <h2 id="moduleTitle">目前分類</h2>
-          </div>
-          <input id="globalSearch" type="search" placeholder="搜尋所有知識條目" />
-        </div>
-        <div id="recordGrid" class="record-grid"></div>
       </section>
     </main>
 
@@ -219,7 +232,7 @@
   </div>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script src="./sync-data.js?v=20260807-case-journey"></script>
-  <script src="./app.js?v=20260807-case-journey"></script>
+  <script src="./sync-data.js?v=20260807-ux-flow"></script>
+  <script src="./app.js?v=20260807-ux-flow"></script>
 </body>
 </html>
