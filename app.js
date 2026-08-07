@@ -393,6 +393,8 @@ function renderNav() {
       state.globalQuery = "";
       $("#globalSearch").value = "";
       render();
+      $("#librarySection")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      showToast(`已切換到「${moduleTitle()}」`);
     });
   });
 }
@@ -400,7 +402,7 @@ function renderNav() {
 function renderSources() {
   const list = visibleSources();
   $("#sourceList").innerHTML = list.length ? list.map((record) => `
-    <label class="source-item">
+    <label class="source-item ${state.selectedSources.has(record.id) ? "is-selected" : ""}">
       <input type="checkbox" data-source="${record.id}" ${state.selectedSources.has(record.id) ? "checked" : ""} />
       <span>
         <strong>${escapeHtml(record.name)}</strong>
@@ -413,8 +415,10 @@ function renderSources() {
     checkbox.addEventListener("change", () => {
       if (checkbox.checked) state.selectedSources.add(checkbox.dataset.source);
       else state.selectedSources.delete(checkbox.dataset.source);
+      renderSources();
       renderRecordGrid();
       renderChat();
+      showToast(checkbox.checked ? "已加入回答來源" : "已移除回答來源");
     });
   });
 }

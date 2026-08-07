@@ -319,6 +319,15 @@ h3 {
   border-radius: 14px;
 }
 
+.source-item.is-selected {
+  background: var(--green-soft);
+  border-color: #9fc2ad;
+}
+
+.source-item:hover {
+  border-color: #adc9ba;
+}
+
 .source-item input {
   width: 18px;
   height: 18px;
