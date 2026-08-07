@@ -133,15 +133,25 @@ h3 {
   line-height: 1.6;
 }
 
-.text-link {
+.icon-link {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
   color: var(--brand-dark);
-  font-size: 14px;
+  background: var(--green-soft);
+  border: 1px solid #cbded2;
+  border-radius: 999px;
+  font-size: 22px;
   font-weight: 800;
+  line-height: 1;
   text-decoration: none;
 }
 
-.text-link:hover {
-  text-decoration: underline;
+.icon-link:hover {
+  background: #dfeee6;
+  border-color: #9fc2ad;
 }
 
 .brand {
