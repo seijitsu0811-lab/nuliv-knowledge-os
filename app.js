@@ -403,21 +403,43 @@ function showToast(text) {
 }
 
 function scrollCenterTo(id) {
-  const panel = $("#centerPanel");
   const target = $(`#${id}`);
-  if (!panel || !target) return;
-  const panelBox = panel.getBoundingClientRect();
-  const targetBox = target.getBoundingClientRect();
-  panel.scrollTo({
-    top: panel.scrollTop + targetBox.top - panelBox.top - 12,
-    behavior: "smooth"
-  });
+  if (!target) return;
+  target.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function renderCurrentContext() {
   const selectedInModule = recordsForModule().filter((record) => state.selectedSources.has(record.id)).length;
   $("#currentContextLabel").textContent = moduleTitle();
   $("#currentSourceCount").textContent = `已選 ${selectedInModule} 個來源`;
+}
+
+function readUrlState() {
+  if (!window.location.hash) {
+    return { module: "philosophy", section: "chatSection" };
+  }
+  const params = new URLSearchParams(window.location.hash.replace(/^#/, ""));
+  const module = params.get("module");
+  const section = params.get("section");
+  return {
+    module: modules.some((item) => item.key === module) ? module : state.module,
+    section: section || "chatSection"
+  };
+}
+
+function writeUrlState(section = "chatSection") {
+  const hash = `module=${encodeURIComponent(state.module)}&section=${encodeURIComponent(section)}`;
+  if (window.location.hash.replace(/^#/, "") === hash) return;
+  history.pushState({ module: state.module, section }, "", `#${hash}`);
+}
+
+function applyUrlState(shouldScroll = true) {
+  const urlState = readUrlState();
+  state.module = urlState.module;
+  state.globalQuery = "";
+  $("#globalSearch").value = "";
+  render();
+  if (shouldScroll) window.setTimeout(() => scrollCenterTo(urlState.section), 0);
 }
 
 function renderNav() {
@@ -437,6 +459,8 @@ function renderNav() {
       state.globalQuery = "";
       $("#globalSearch").value = "";
       render();
+      writeUrlState("chatSection");
+      scrollCenterTo("chatSection");
       showToast(`已切換到「${moduleTitle()}」，可直接提問或查看知識條目`);
     });
   });
@@ -592,9 +616,11 @@ function renderSyncStatus() {
 function bindEvents() {
   document.querySelectorAll("[data-jump]").forEach((button) => {
     button.addEventListener("click", () => {
+      writeUrlState(button.dataset.jump);
       scrollCenterTo(button.dataset.jump);
     });
   });
+  window.addEventListener("popstate", () => applyUrlState(true));
   $("#addKnowledgeBtn").addEventListener("click", () => {
     window.open(NOTION_DATABASE_URL, "_blank", "noopener,noreferrer");
   });
@@ -645,4 +671,4 @@ function render() {
 }
 
 bindEvents();
-render();
+applyUrlState(Boolean(window.location.hash));
