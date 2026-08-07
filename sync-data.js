@@ -1,5 +1,5 @@
-window.NULIV_SYNCED_AT = "2026/8/4 00:00:00";
-window.NULIV_SYNC_SOURCE = "v0.5 demo import from 睡眠相關知識整理報告.docx";
+window.NULIV_SYNCED_AT = "2026/8/7 00:00:00";
+window.NULIV_SYNC_SOURCE = "v0.6 demo import from 睡眠相關知識整理報告.docx + sleep-cognitive-models.md";
 window.NULIV_SYNC_RECORDS = [
   {
     id: "sleep-cbti-core",
@@ -160,6 +160,26 @@ window.NULIV_SYNC_RECORDS = [
     coreFit: "需修正",
     useCases: "個管師、業務、衛教、個案分析",
     source: "睡眠相關知識整理報告.docx；21天睡眠健康重建計畫_260612.pptx"
+  },
+  {
+    id: "sleep-cognitive-regulation-models",
+    name: "睡眠認知與生理調節模型",
+    moduleTitle: "療程服務與項目",
+    category: "睡眠支持／認知模型",
+    status: "待審核",
+    priority: "高：必學",
+    intro: "睡眠不是單純休息，而是由睡眠壓力、晝夜節律、腦部代謝清除、突觸重整、睡醒切換與失眠心理行為因素共同影響的主動調節系統。",
+    mechanism: "此知識整合五個模型：雙歷程模型說明睡眠壓力 Process S 與晝夜節律 Process C；glymphatic 系統說明睡眠與腦部代謝清除；突觸恆定假說說明睡眠與記憶、學習及神經可塑性；flip-flop switch 模型說明睡醒狀態切換與 orexin 穩定作用；3P 失眠模型說明易感、誘發與維持因素如何讓短期失眠變慢性失眠。",
+    script: "我們看睡眠，不只是問你睡幾小時，而是看你的身體是否累積足夠睡眠壓力、生理時鐘是否穩定、腦部是否有足夠恢復時間，以及焦慮、壓力和錯誤睡眠習慣是否讓失眠被維持下來。",
+    sop: "先確認作息、光照、咖啡因、午睡、入睡時間、夜醒、早醒與日間精神；再區分是睡眠壓力不足、晝夜節律混亂、過度警覺、睡眠呼吸風險或長期失眠維持因素；必要時導入 CBT-I 原則、睡眠量表、HRV/CPC 或醫師評估。",
+    caution: "這些模型可作為教育訓練與個管師判斷框架，但不能直接用來診斷疾病。glymphatic、突觸恆定與 orexin 等機制不可被包裝成單一療法保證；慢性失眠、疑似 OSA、猝睡症或嚴重情緒困擾需轉醫師或睡眠專科評估。",
+    relation: "睡眠衛教｜核心觀念＋SOP 行動指南（CBT-I）、睡眠生理｜週期、深睡與 REM、睡眠障礙與 OSA 風險判斷、CPC／HRV 睡眠檢測邏輯、睡眠與免疫、代謝、心血管、情緒",
+    audience: "個管師、醫師、專科護理師、團隊人員、新進員工、睡眠衛教與睡眠方案設計",
+    risk: "若只講模型名詞，員工會難以應用；若過度簡化，容易把複雜睡眠問題誤判為單一作息問題或單一療法可解決。",
+    evidence: "外部醫學文獻",
+    coreFit: "符合",
+    useCases: "教育訓練、個管師、AI問答、睡眠衛教、SOP、知識交叉分析",
+    source: "C:\\Users\\John\\Downloads\\sleep-cognitive-models.md；Borbély 1982；Iliff 2012；Xie 2013；Tononi & Cirelli 2003/2006；Saper 2001/2005；Spielman 1987"
   }
 ];
 window.NULIV_SYNC_FAQS = [
