@@ -676,6 +676,89 @@ h3 {
   border-top: 1px solid var(--line);
 }
 
+.case-record-card {
+  grid-column: 1 / -1;
+  gap: 14px;
+  min-height: 0;
+  background: #fbfcfb;
+  border-color: #cbded2;
+}
+
+.case-card-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.case-status {
+  flex: 0 0 auto;
+  padding: 6px 10px;
+  color: #7c5c15;
+  background: var(--gold-soft);
+  border: 1px solid #e2d1a8;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.case-summary {
+  margin: 0;
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.case-core {
+  padding: 14px;
+  background: var(--green-soft);
+  border: 1px solid #bfd9c8;
+  border-radius: 14px;
+}
+
+.case-core strong,
+.case-core p {
+  display: block;
+  margin: 0;
+}
+
+.case-core strong {
+  margin-bottom: 6px;
+  color: var(--brand-dark);
+}
+
+.case-core p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.case-field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.case-field-grid section {
+  padding: 12px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+.case-field-grid span {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--brand-dark);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.case-field-grid p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
 .tool-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -933,6 +1016,7 @@ h3 {
   .principle-strip,
   .section-heading,
   .record-grid,
+  .case-field-grid,
   .workspace-panel {
     grid-template-columns: 1fr;
   }

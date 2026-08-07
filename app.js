@@ -452,7 +452,12 @@ function renderSources() {
 function renderRecordGrid() {
   $("#moduleTitle").textContent = state.globalQuery ? `搜尋：${state.globalQuery}` : moduleTitle();
   const list = visibleRecords();
-  $("#recordGrid").innerHTML = list.length ? list.map((record) => `
+  $("#recordGrid").innerHTML = list.length ? list.map((record) => renderRecordCard(record)).join("") : `<p class="empty wide">找不到資料。請到 Notion 新增知識，或放寬搜尋條件。</p>`;
+}
+
+function renderRecordCard(record) {
+  if (record.module === "case") return renderCaseRecordCard(record);
+  return `
     <article class="record-card">
       <div>
         <span>${escapeHtml(record.category)}</span>
@@ -469,7 +474,53 @@ function renderRecordGrid() {
         <small>${escapeHtml(record.source || "來源待補")}</small>
       </footer>
     </article>
-  `).join("") : `<p class="empty wide">找不到資料。請到 Notion 新增知識，或放寬搜尋條件。</p>`;
+  `;
+}
+
+function renderCaseRecordCard(record) {
+  const fields = [
+    ["歷程", record.caseJourney],
+    ["互動", record.interaction],
+    ["方法", record.interventions],
+    ["支持", record.supporters],
+    ["改善", record.outcomes],
+    ["追蹤", record.followUp],
+    ["可沉澱知識", record.lessons]
+  ].filter(([, value]) => value);
+
+  return `
+    <article class="record-card case-record-card">
+      <div class="case-card-header">
+        <div>
+          <span>${escapeHtml(record.category)}</span>
+          <strong>${escapeHtml(record.name)}</strong>
+        </div>
+        <b class="case-status">${escapeHtml(record.status)}</b>
+      </div>
+      <p class="case-summary">${escapeHtml(record.intro || "待補個案摘要")}</p>
+      <div class="case-core">
+        <strong>人本判斷</strong>
+        <p>${escapeHtml(record.mechanism || "待補：此個案背後的人、意願、急迫性、支持系統與四端資訊。")}</p>
+      </div>
+      <div class="case-field-grid">
+        ${fields.map(([label, value]) => `
+          <section>
+            <span>${escapeHtml(label)}</span>
+            <p>${escapeHtml(value)}</p>
+          </section>
+        `).join("")}
+      </div>
+      <div class="review-badges">
+        <b class="${reviewClass(record.coreFit)}">${escapeHtml(record.coreFit)}</b>
+        <b>${escapeHtml(record.evidence)}</b>
+        <b>${escapeHtml(record.useCases)}</b>
+      </div>
+      <footer>
+        <small>${escapeHtml(record.priority)}</small>
+        <small>${escapeHtml(record.source || "來源待補")}</small>
+      </footer>
+    </article>
+  `;
 }
 
 function reviewClass(value) {
